@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		5FACF59329A0BC1D00F068ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FACF59229A0BC1D00F068ED /* AppDelegate.swift */; };
 		5FACF59529A0BC1D00F068ED /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FACF59429A0BC1D00F068ED /* SceneDelegate.swift */; };
-		5FACF59729A0BC1D00F068ED /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FACF59629A0BC1D00F068ED /* ViewController.swift */; };
-		5FACF59A29A0BC1D00F068ED /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FACF59829A0BC1D00F068ED /* Main.storyboard */; };
 		5FACF59C29A0BC1F00F068ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5FACF59B29A0BC1F00F068ED /* Assets.xcassets */; };
 		5FACF59F29A0BC1F00F068ED /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FACF59D29A0BC1F00F068ED /* LaunchScreen.storyboard */; };
 		5FACF5AA29A0BC1F00F068ED /* WeatherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FACF5A929A0BC1F00F068ED /* WeatherTests.swift */; };
@@ -39,8 +37,6 @@
 		5FACF58F29A0BC1D00F068ED /* Weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5FACF59229A0BC1D00F068ED /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5FACF59429A0BC1D00F068ED /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		5FACF59629A0BC1D00F068ED /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		5FACF59929A0BC1D00F068ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5FACF59B29A0BC1F00F068ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5FACF59E29A0BC1F00F068ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5FACF5A029A0BC1F00F068ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -99,11 +95,13 @@
 		5FACF59129A0BC1D00F068ED /* Weather */ = {
 			isa = PBXGroup;
 			children = (
-				5FACF59229A0BC1D00F068ED /* AppDelegate.swift */,
-				5FACF59429A0BC1D00F068ED /* SceneDelegate.swift */,
-				5FACF59629A0BC1D00F068ED /* ViewController.swift */,
-				5FACF59829A0BC1D00F068ED /* Main.storyboard */,
-				5FACF59B29A0BC1F00F068ED /* Assets.xcassets */,
+				5FACF5C829A0BD4E00F068ED /* Application */,
+				5FACF5C729A0BD3C00F068ED /* SupportingFiles */,
+				5FACF5C629A0BD3600F068ED /* Modules */,
+				5FACF5C529A0BD2800F068ED /* Network */,
+				5FACF5C429A0BD2200F068ED /* Utilities */,
+				5FACF5C329A0BD0A00F068ED /* Extenstions */,
+				5FACF5C229A0BCD200F068ED /* Assets */,
 				5FACF59D29A0BC1F00F068ED /* LaunchScreen.storyboard */,
 				5FACF5A029A0BC1F00F068ED /* Info.plist */,
 			);
@@ -125,6 +123,58 @@
 				5FACF5B529A0BC1F00F068ED /* WeatherUITestsLaunchTests.swift */,
 			);
 			path = WeatherUITests;
+			sourceTree = "<group>";
+		};
+		5FACF5C229A0BCD200F068ED /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				5FACF59B29A0BC1F00F068ED /* Assets.xcassets */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		5FACF5C329A0BD0A00F068ED /* Extenstions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extenstions;
+			sourceTree = "<group>";
+		};
+		5FACF5C429A0BD2200F068ED /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		5FACF5C529A0BD2800F068ED /* Network */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		5FACF5C629A0BD3600F068ED /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		5FACF5C729A0BD3C00F068ED /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		5FACF5C829A0BD4E00F068ED /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				5FACF59229A0BC1D00F068ED /* AppDelegate.swift */,
+				5FACF59429A0BC1D00F068ED /* SceneDelegate.swift */,
+			);
+			path = Application;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -233,7 +283,6 @@
 			files = (
 				5FACF59F29A0BC1F00F068ED /* LaunchScreen.storyboard in Resources */,
 				5FACF59C29A0BC1F00F068ED /* Assets.xcassets in Resources */,
-				5FACF59A29A0BC1D00F068ED /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,7 +307,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5FACF59729A0BC1D00F068ED /* ViewController.swift in Sources */,
 				5FACF59329A0BC1D00F068ED /* AppDelegate.swift in Sources */,
 				5FACF59529A0BC1D00F068ED /* SceneDelegate.swift in Sources */,
 			);
@@ -297,14 +345,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		5FACF59829A0BC1D00F068ED /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				5FACF59929A0BC1D00F068ED /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		5FACF59D29A0BC1F00F068ED /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -450,7 +490,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mathi.Weather;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mathi.weather;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -478,7 +518,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mathi.Weather;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mathi.weather;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
