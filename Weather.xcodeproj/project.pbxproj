@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5F619B4329A22F2C002DB2EC /* EndPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F619B4229A22F2C002DB2EC /* EndPoints.swift */; };
 		5FACF59329A0BC1D00F068ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FACF59229A0BC1D00F068ED /* AppDelegate.swift */; };
 		5FACF59529A0BC1D00F068ED /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FACF59429A0BC1D00F068ED /* SceneDelegate.swift */; };
 		5FACF59C29A0BC1F00F068ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5FACF59B29A0BC1F00F068ED /* Assets.xcassets */; };
@@ -36,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5F619B4229A22F2C002DB2EC /* EndPoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoints.swift; sourceTree = "<group>"; };
 		5FACF58F29A0BC1D00F068ED /* Weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5FACF59229A0BC1D00F068ED /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5FACF59429A0BC1D00F068ED /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 		5FACF5C529A0BD2800F068ED /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				5F619B4229A22F2C002DB2EC /* EndPoints.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -346,6 +349,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5FACF5CB29A0BE8A00F068ED /* HomeVC.swift in Sources */,
+				5F619B4329A22F2C002DB2EC /* EndPoints.swift in Sources */,
 				5FACF59329A0BC1D00F068ED /* AppDelegate.swift in Sources */,
 				5FACF59529A0BC1D00F068ED /* SceneDelegate.swift in Sources */,
 				5FACF5D029A0C50C00F068ED /* HomeVM.swift in Sources */,
