@@ -15,6 +15,27 @@ class HomeVC: UIViewController {
     
     // MARK: Components
     
+    private var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
+    }()
+    
+    /// Current Temperature StackView
+    private var currentTemperatureView: CurrentTemperatureView = {
+        let stackView = CurrentTemperatureView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.backgroundColor = .orange
+        stackView.layer.cornerRadius = 12
+        return stackView
+    }()
+    
+    private var collectionView: UICollectionView = {
+        let collectionView = UICollectionView()
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        return collectionView
+    }()
+    
     // MARK: - View LifeCycle
     
     override func viewDidLoad() {
@@ -23,7 +44,7 @@ class HomeVC: UIViewController {
         setupUI()
         configure()
         
-        vm.checkIfLocationServicesEnabled()
+        // vm.checkIfLocationServicesEnabled()
     }
     
     // MARK: - SetupUI
@@ -31,11 +52,32 @@ class HomeVC: UIViewController {
     private func setupUI() {
         self.title = "Home"
         view.backgroundColor = .systemBackground
+        
+        setTemperatureView()
     }
     
     // MARK: - Configure
     
     private func configure() {
         
+    }
+}
+
+// MARK: - Set Temperature View
+
+extension HomeVC {
+    
+    private func setTemperatureView() {
+        view.addSubview(currentTemperatureView)
+        
+        let safeArea = view.safeAreaLayoutGuide
+        let constraintsCurrentTempView = [
+            currentTemperatureView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 30),
+            currentTemperatureView.leftAnchor.constraint(equalTo: safeArea.leftAnchor, constant: 30),
+            currentTemperatureView.rightAnchor.constraint(equalTo: safeArea.rightAnchor, constant: -30)
+        ]
+        NSLayoutConstraint.activate(constraintsCurrentTempView)
+        
+        currentTemperatureView.configure()
     }
 }
