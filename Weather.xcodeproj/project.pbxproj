@@ -15,6 +15,9 @@
 		5FACF5B429A0BC1F00F068ED /* WeatherUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FACF5B329A0BC1F00F068ED /* WeatherUITests.swift */; };
 		5FACF5B629A0BC1F00F068ED /* WeatherUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FACF5B529A0BC1F00F068ED /* WeatherUITestsLaunchTests.swift */; };
 		5FACF5CB29A0BE8A00F068ED /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FACF5CA29A0BE8A00F068ED /* HomeVC.swift */; };
+		5FACF5D029A0C50C00F068ED /* HomeVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FACF5CF29A0C50C00F068ED /* HomeVM.swift */; };
+		5FBB7A0929A226650014BB45 /* NetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBB7A0829A226650014BB45 /* NetworkController.swift */; };
+		5FBB7A0B29A226BA0014BB45 /* HTTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBB7A0A29A226BA0014BB45 /* HTTP.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +50,9 @@
 		5FACF5B329A0BC1F00F068ED /* WeatherUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherUITests.swift; sourceTree = "<group>"; };
 		5FACF5B529A0BC1F00F068ED /* WeatherUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		5FACF5CA29A0BE8A00F068ED /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
+		5FACF5CF29A0C50C00F068ED /* HomeVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVM.swift; sourceTree = "<group>"; };
+		5FBB7A0829A226650014BB45 /* NetworkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkController.swift; sourceTree = "<group>"; };
+		5FBB7A0A29A226BA0014BB45 /* HTTP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTP.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +151,7 @@
 		5FACF5C429A0BD2200F068ED /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				5FBB7A0A29A226BA0014BB45 /* HTTP.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -152,6 +159,7 @@
 		5FACF5C529A0BD2800F068ED /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				5FBB7A0829A226650014BB45 /* NetworkController.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -183,9 +191,34 @@
 		5FACF5C929A0BE6600F068ED /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				5FACF5CA29A0BE8A00F068ED /* HomeVC.swift */,
+				5FACF5CE29A0C4F800F068ED /* View */,
+				5FACF5CD29A0C4E800F068ED /* ViewModel */,
+				5FACF5CC29A0C4E500F068ED /* Model */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		5FACF5CC29A0C4E500F068ED /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		5FACF5CD29A0C4E800F068ED /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				5FACF5CF29A0C50C00F068ED /* HomeVM.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		5FACF5CE29A0C4F800F068ED /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5FACF5CA29A0BE8A00F068ED /* HomeVC.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -318,9 +351,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5FBB7A0929A226650014BB45 /* NetworkController.swift in Sources */,
 				5FACF5CB29A0BE8A00F068ED /* HomeVC.swift in Sources */,
 				5FACF59329A0BC1D00F068ED /* AppDelegate.swift in Sources */,
+				5FBB7A0B29A226BA0014BB45 /* HTTP.swift in Sources */,
 				5FACF59529A0BC1D00F068ED /* SceneDelegate.swift in Sources */,
+				5FACF5D029A0C50C00F068ED /* HomeVM.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -494,11 +530,11 @@
 				INFOPLIST_FILE = Weather/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Weather;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.weather";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "App needs your location to find the weather informations.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -524,11 +560,11 @@
 				INFOPLIST_FILE = Weather/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Weather;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.weather";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "App needs your location to find the weather informations.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -551,7 +587,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7XSG63BDFK;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mathi.WeatherTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -571,7 +607,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7XSG63BDFK;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mathi.WeatherTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -590,6 +626,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7XSG63BDFK;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mathi.WeatherUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -608,6 +646,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7XSG63BDFK;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mathi.WeatherUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
