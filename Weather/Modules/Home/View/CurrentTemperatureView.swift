@@ -48,7 +48,7 @@ class CurrentTemperatureView: UIStackView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        setupUI()
+        setUI()
     }
 }
 
@@ -64,11 +64,11 @@ extension CurrentTemperatureView {
     }
 }
 
-// MARK: - SetupUI
+// MARK: - SetUI
 
 extension CurrentTemperatureView {
     
-    private func setupUI() {
+    private func setUI() {
        self.axis = .vertical
        self.alignment = .center
        self.distribution = .fill

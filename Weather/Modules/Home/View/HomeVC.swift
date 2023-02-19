@@ -25,8 +25,9 @@ class HomeVC: UIViewController {
     private var currentTemperatureView: CurrentTemperatureView = {
         let stackView = CurrentTemperatureView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.backgroundColor = .orange
         stackView.layer.cornerRadius = 12
+        
+        stackView.backgroundColor = .orange
         return stackView
     }()
     
