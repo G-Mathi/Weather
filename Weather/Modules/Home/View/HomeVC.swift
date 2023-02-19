@@ -31,9 +31,10 @@ class HomeVC: UIViewController {
         return stackView
     }()
     
-    private var collectionView: UICollectionView = {
-        let collectionView = UICollectionView()
+    private var hourlyForecastView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout.init())
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.backgroundColor = .link
         return collectionView
     }()
     
@@ -54,7 +55,8 @@ class HomeVC: UIViewController {
         self.title = "Home"
         view.backgroundColor = .systemBackground
         
-        setTemperatureView()
+//        setTemperatureView()
+        setHourlyForecastView()
     }
     
     // MARK: - Configure
@@ -80,5 +82,50 @@ extension HomeVC {
         NSLayoutConstraint.activate(constraintsCurrentTempView)
         
         currentTemperatureView.configure()
+    }
+}
+
+// MARK: - Set Hourly Forecast View
+
+extension HomeVC {
+    
+    private func setHourlyForecastView() {
+        view.addSubview(hourlyForecastView)
+        
+        hourlyForecastView.delegate = self
+        hourlyForecastView.dataSource = self
+        hourlyForecastView.register(HourlyForecastCVCell.self, forCellWithReuseIdentifier: HourlyForecastCVCell.identifier)
+        
+        let safeArea = view.safeAreaLayoutGuide
+        let constraintsHourlyView = [
+            hourlyForecastView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 30),
+            hourlyForecastView.leftAnchor.constraint(equalTo: safeArea.leftAnchor, constant: 30),
+            hourlyForecastView.rightAnchor.constraint(equalTo: safeArea.rightAnchor, constant: -30),
+            hourlyForecastView.heightAnchor.constraint(equalToConstant: 120)
+        ]
+        NSLayoutConstraint.activate(constraintsHourlyView)
+    }
+}
+
+// MARK: - UICollectionView Delegate
+
+extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 24
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        if let hourlyForeCastCVCell = collectionView.dequeueReusableCell(withReuseIdentifier: HourlyForecastCVCell.identifier, for: indexPath) as? HourlyForecastCVCell {
+            hourlyForeCastCVCell.configure()
+            return hourlyForeCastCVCell
+        }
+        
+        return UICollectionViewCell()
     }
 }

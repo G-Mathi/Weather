@@ -2,7 +2,7 @@
 //  HourlyForecastCVCell.swift
 //  Weather
 //
-//  Created by dilax on 2023-02-19.
+//  Created by Mathi on 2023-02-19.
 //
 
 import UIKit
@@ -60,6 +60,8 @@ class HourlyForecastCVCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        
+        setContainer()
     }
     
     override func prepareForReuse() {
@@ -76,19 +78,29 @@ class HourlyForecastCVCell: UICollectionViewCell {
 extension HourlyForecastCVCell {
     
     func configure() {
-        lblTime.text = ""
-        imageView.image = UIImage()
-        lblTemperature.text = ""
+        lblTime.text = "15"
+        imageView.image = UIImage(systemName: "person")
+        lblTemperature.text = 28.getCelciusFormat()
     }
 }
 
-// MARK: - Set
+// MARK: - SetUI
 
 extension HourlyForecastCVCell {
     
     private func addViews() {
+        contentView.addSubview(container)
         container.addArrangedSubview(lblTime)
         container.addArrangedSubview(imageView)
         container.addArrangedSubview(lblTemperature)
+    }
+    
+    private func setContainer() {
+        let constraintsCOntainer = [
+            container.topAnchor.constraint(equalTo: contentView.topAnchor),
+            container.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            container.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            container.rightAnchor.constraint(equalTo: contentView.rightAnchor)
+        ]
     }
 }
