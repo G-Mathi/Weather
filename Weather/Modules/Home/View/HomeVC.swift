@@ -15,9 +15,10 @@ class HomeVC: UIViewController {
     
     // MARK: Components
     
-    private var tableView: UITableView = {
+    private var dailyForecastView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.separatorStyle = .none
         return tableView
     }()
     
@@ -48,11 +49,7 @@ class HomeVC: UIViewController {
         setupUI()
         configure()
         
-        if let endpoint = EndPoint.getWeatherForecast().request {
-            print(endpoint)
-        }
-        
-        vm.getWeatherForecast()
+//        vm.getWeatherForecast()
         
         // vm.checkIfLocationServicesEnabled()
     }
@@ -64,7 +61,8 @@ class HomeVC: UIViewController {
         view.backgroundColor = .systemBackground
         
 //        setTemperatureView()
-        setHourlyForecastView()
+//        setHourlyForecastView()
+        setDailyForecastView()
     }
     
     // MARK: - Configure
@@ -115,7 +113,29 @@ extension HomeVC {
     }
 }
 
-// MARK: - UICollectionView Delegate
+// MARK: - Set Daily Forecast View
+
+extension HomeVC {
+    
+    private func setDailyForecastView() {
+        view.addSubview(dailyForecastView)
+        
+        dailyForecastView.delegate = self
+        dailyForecastView.dataSource = self
+        dailyForecastView.register(DailyForecastTVCell.self, forCellReuseIdentifier: DailyForecastTVCell.identifier)
+        
+        let safeArea = view.safeAreaLayoutGuide
+        let constraintsDailyView = [
+            dailyForecastView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 30),
+            dailyForecastView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
+            dailyForecastView.leftAnchor.constraint(equalTo: safeArea.leftAnchor, constant: 30),
+            dailyForecastView.rightAnchor.constraint(equalTo: safeArea.rightAnchor, constant: -30)
+        ]
+        NSLayoutConstraint.activate(constraintsDailyView)
+    }
+}
+
+// MARK: - CollectionView Delegate
 
 extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
     
@@ -135,5 +155,26 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
         }
         
         return UICollectionViewCell()
+    }
+}
+
+// MARK: - TableView Delegate
+
+extension HomeVC: UITableViewDelegate, UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 7
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if let dailyForecastCell = tableView.dequeueReusableCell(withIdentifier: DailyForecastTVCell.identifier, for: indexPath) as? DailyForecastTVCell {
+            dailyForecastCell.configure()
+            return dailyForecastCell
+        }
+        return UITableViewCell()
     }
 }

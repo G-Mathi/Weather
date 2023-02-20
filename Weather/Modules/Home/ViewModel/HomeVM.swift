@@ -22,7 +22,6 @@ class HomeVM: NSObject {
         ]
         
         guard let request = EndPoint.getWeatherForecast(queryItems: forcastQuery).request else { return }
-        print("\(request) \n")
         
         URLSession.shared.dataTask(with: request) { data, response, error in
             if let error {
@@ -31,11 +30,8 @@ class HomeVM: NSObject {
             
             if let data {
                 do {
-                    let json = try JSONSerialization.jsonObject(with: data)
-                    print(json)
                     let post = try JSONDecoder().decode(Forecast.self, from: data)
                     print(post)
-                    print("Hi")
                 } catch(let err) {
                     print(err)
                 }

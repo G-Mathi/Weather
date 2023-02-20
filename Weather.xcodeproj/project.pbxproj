@@ -23,6 +23,7 @@
 		5FACF5B629A0BC1F00F068ED /* WeatherUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FACF5B529A0BC1F00F068ED /* WeatherUITestsLaunchTests.swift */; };
 		5FACF5CB29A0BE8A00F068ED /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FACF5CA29A0BE8A00F068ED /* HomeVC.swift */; };
 		5FACF5D029A0C50C00F068ED /* HomeVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FACF5CF29A0C50C00F068ED /* HomeVM.swift */; };
+		5FF85C7229A38B1B00D5BC77 /* DailyForecastTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FF85C7129A38B1B00D5BC77 /* DailyForecastTVCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		5FACF5B529A0BC1F00F068ED /* WeatherUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		5FACF5CA29A0BE8A00F068ED /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		5FACF5CF29A0C50C00F068ED /* HomeVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVM.swift; sourceTree = "<group>"; };
+		5FF85C7129A38B1B00D5BC77 /* DailyForecastTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyForecastTVCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -232,6 +234,7 @@
 				5FAC762129A2488A0084392A /* CurrentTemperatureView.swift */,
 				5F4C936929A260AB001AACCC /* HourlyForecastView.swift */,
 				5F4C936B29A26153001AACCC /* HourlyForecastCVCell.swift */,
+				5FF85C7129A38B1B00D5BC77 /* DailyForecastTVCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -374,6 +377,7 @@
 				5F4C936E29A308F6001AACCC /* APIEnvironment.swift in Sources */,
 				5FACF59329A0BC1D00F068ED /* AppDelegate.swift in Sources */,
 				5FACF59529A0BC1D00F068ED /* SceneDelegate.swift in Sources */,
+				5FF85C7229A38B1B00D5BC77 /* DailyForecastTVCell.swift in Sources */,
 				5FACF5D029A0C50C00F068ED /* HomeVM.swift in Sources */,
 				5F4C937029A34014001AACCC /* Forecast.swift in Sources */,
 				5FAC762229A2488A0084392A /* CurrentTemperatureView.swift in Sources */,
