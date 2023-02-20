@@ -16,9 +16,10 @@ class HomeVC: UIViewController {
     // MARK: Components
     
     private var dailyForecastView: UITableView = {
-        let tableView = UITableView()
+        let tableView = UITableView(frame: .zero, style: .plain)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.separatorStyle = .none
+        tableView.showsVerticalScrollIndicator = false
         return tableView
     }()
     
@@ -30,15 +31,6 @@ class HomeVC: UIViewController {
         
         stackView.backgroundColor = .orange
         return stackView
-    }()
-    
-    private var hourlyForecastView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .link
-        return collectionView
     }()
     
     // MARK: - View LifeCycle
@@ -91,28 +83,6 @@ extension HomeVC {
     }
 }
 
-// MARK: - Set Hourly Forecast View
-
-extension HomeVC {
-    
-    private func setHourlyForecastView() {
-        view.addSubview(hourlyForecastView)
-        
-        hourlyForecastView.delegate = self
-        hourlyForecastView.dataSource = self
-        hourlyForecastView.register(HourlyForecastCVCell.self, forCellWithReuseIdentifier: HourlyForecastCVCell.identifier)
-        
-        let safeArea = view.safeAreaLayoutGuide
-        let constraintsHourlyView = [
-            hourlyForecastView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 30),
-            hourlyForecastView.leftAnchor.constraint(equalTo: safeArea.leftAnchor, constant: 30),
-            hourlyForecastView.rightAnchor.constraint(equalTo: safeArea.rightAnchor, constant: -30),
-            hourlyForecastView.heightAnchor.constraint(equalToConstant: 120)
-        ]
-        NSLayoutConstraint.activate(constraintsHourlyView)
-    }
-}
-
 // MARK: - Set Daily Forecast View
 
 extension HomeVC {
@@ -122,39 +92,21 @@ extension HomeVC {
         
         dailyForecastView.delegate = self
         dailyForecastView.dataSource = self
+        
+        let header = Header(frame: CGRect(x: 0, y: 0, width: dailyForecastView.frame.size.width, height: 200))
+        dailyForecastView.tableHeaderView = header
+        
         dailyForecastView.register(DailyForecastTVCell.self, forCellReuseIdentifier: DailyForecastTVCell.identifier)
+        
         
         let safeArea = view.safeAreaLayoutGuide
         let constraintsDailyView = [
-            dailyForecastView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 30),
+            dailyForecastView.topAnchor.constraint(equalTo: safeArea.topAnchor),
             dailyForecastView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
-            dailyForecastView.leftAnchor.constraint(equalTo: safeArea.leftAnchor, constant: 30),
-            dailyForecastView.rightAnchor.constraint(equalTo: safeArea.rightAnchor, constant: -30)
+            dailyForecastView.leftAnchor.constraint(equalTo: safeArea.leftAnchor),
+            dailyForecastView.rightAnchor.constraint(equalTo: safeArea.rightAnchor)
         ]
         NSLayoutConstraint.activate(constraintsDailyView)
-    }
-}
-
-// MARK: - CollectionView Delegate
-
-extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
-    
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 24
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        if let hourlyForeCastCVCell = collectionView.dequeueReusableCell(withReuseIdentifier: HourlyForecastCVCell.identifier, for: indexPath) as? HourlyForecastCVCell {
-            hourlyForeCastCVCell.configure()
-            return hourlyForeCastCVCell
-        }
-        
-        return UICollectionViewCell()
     }
 }
 
@@ -167,7 +119,7 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 7
+        return 40
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
