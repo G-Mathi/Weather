@@ -35,6 +35,6 @@ enum APIEnvironment {
     }
     
     func route() -> String {
-        return "/data/2.5/"
+        return "/data/3.0/"
     }
 }

@@ -39,7 +39,7 @@ extension URLRequest {
 }
 
 enum EndPoint {
-    case getCurrentWeather(path: String = "weather", queryItems: [URLQueryItem]? = nil)
+    case getWeatherForecast(path: String = "onecall", queryItems: [URLQueryItem]? = nil)
     
     var request: URLRequest? {
         guard let url = url else { return nil }
@@ -72,21 +72,21 @@ enum EndPoint {
     private var path: String {
         let route = APIEnvironment.current().route()
         switch self {
-        case .getCurrentWeather(let path, _):
+        case .getWeatherForecast(let path, _):
             return route + path
         }
     }
     
     private var httpMethod: String {
         switch self {
-        case .getCurrentWeather:
+        case .getWeatherForecast:
             return HTTP.Method.post.rawValue
         }
     }
     
     private var queryItems: [URLQueryItem]? {
         switch self {
-        case .getCurrentWeather(_, let queryItems):
+        case .getWeatherForecast(_, let queryItems):
             return queryItems
         }
     }

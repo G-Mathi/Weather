@@ -10,6 +10,7 @@
 		5F4C936A29A260AB001AACCC /* HourlyForecastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4C936929A260AB001AACCC /* HourlyForecastView.swift */; };
 		5F4C936C29A26153001AACCC /* HourlyForecastCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4C936B29A26153001AACCC /* HourlyForecastCVCell.swift */; };
 		5F4C936E29A308F6001AACCC /* APIEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4C936D29A308F6001AACCC /* APIEnvironment.swift */; };
+		5F4C937029A34014001AACCC /* Forecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4C936F29A34014001AACCC /* Forecast.swift */; };
 		5F619B4329A22F2C002DB2EC /* EndPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F619B4229A22F2C002DB2EC /* EndPoints.swift */; };
 		5FAC762229A2488A0084392A /* CurrentTemperatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FAC762129A2488A0084392A /* CurrentTemperatureView.swift */; };
 		5FAC762429A2513F0084392A /* CommonExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FAC762329A2513F0084392A /* CommonExtentions.swift */; };
@@ -45,6 +46,7 @@
 		5F4C936929A260AB001AACCC /* HourlyForecastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyForecastView.swift; sourceTree = "<group>"; };
 		5F4C936B29A26153001AACCC /* HourlyForecastCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyForecastCVCell.swift; sourceTree = "<group>"; };
 		5F4C936D29A308F6001AACCC /* APIEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEnvironment.swift; sourceTree = "<group>"; };
+		5F4C936F29A34014001AACCC /* Forecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forecast.swift; sourceTree = "<group>"; };
 		5F619B4229A22F2C002DB2EC /* EndPoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoints.swift; sourceTree = "<group>"; };
 		5FAC762129A2488A0084392A /* CurrentTemperatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentTemperatureView.swift; sourceTree = "<group>"; };
 		5FAC762329A2513F0084392A /* CommonExtentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonExtentions.swift; sourceTree = "<group>"; };
@@ -210,6 +212,7 @@
 		5FACF5CC29A0C4E500F068ED /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				5F4C936F29A34014001AACCC /* Forecast.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -372,6 +375,7 @@
 				5FACF59329A0BC1D00F068ED /* AppDelegate.swift in Sources */,
 				5FACF59529A0BC1D00F068ED /* SceneDelegate.swift in Sources */,
 				5FACF5D029A0C50C00F068ED /* HomeVM.swift in Sources */,
+				5F4C937029A34014001AACCC /* Forecast.swift in Sources */,
 				5FAC762229A2488A0084392A /* CurrentTemperatureView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

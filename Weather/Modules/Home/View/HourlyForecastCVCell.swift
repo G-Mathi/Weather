@@ -96,11 +96,12 @@ extension HourlyForecastCVCell {
     }
     
     private func setContainer() {
-        let constraintsCOntainer = [
+        let constraintsContainer = [
             container.topAnchor.constraint(equalTo: contentView.topAnchor),
             container.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             container.leftAnchor.constraint(equalTo: contentView.leftAnchor),
             container.rightAnchor.constraint(equalTo: contentView.rightAnchor)
         ]
+        NSLayoutConstraint.activate(constraintsContainer)
     }
 }
