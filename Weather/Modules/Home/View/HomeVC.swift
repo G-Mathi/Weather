@@ -48,6 +48,10 @@ class HomeVC: UIViewController {
         setupUI()
         configure()
         
+        if let endpoint = EndPoint.getCurrentWeather().request {
+            print(endpoint)
+        }
+        
         // vm.checkIfLocationServicesEnabled()
     }
     
