@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - Forecast
 
-struct Forecast {
+struct Forecast: Codable {
     var lat: Double
     var lon: Double
     var timezone: String
@@ -17,46 +17,58 @@ struct Forecast {
     var current: WeatherInfo
     var hourly: [WeatherInfo]
     var daily: [WeatherInfoDaily]
+    
+    enum CodingKeys: String, CodingKey {
+        case lat, lon, timezone
+        case timezoneOffset = "timezone_offset"
+        case current, hourly, daily
+    }
 }
 
 // MARK: - Weather Info
 
-struct WeatherInfo {
+struct WeatherInfo: Codable {
     var dt: UInt
     var sunrise: UInt
     var sunset: UInt
     var temp: Double
     var feelsLike: Double
     var weather: [WeatherDescription]
-//    var pressure: Int
-//    var humidity: Int
-//    var dew_point: Double
-//    var uvi: Int
-//    var clouds: Int
-//    var visibility: Int
-//    var wind_speed: Double
-//    var wind_deg: Int
-}
-
-struct WeatherDescription {
-    var id: Int
-    var main: String
-    var description: String
-    var icon: String
+    
+    enum CodingKeys: String, CodingKey {
+        case dt, sunrise, sunset, temp
+        case feelsLike = "feels_like"
+        case weather
+    }
 }
 
 // MARK: - Weather Info Daily
 
-struct WeatherInfoDaily {
+struct WeatherInfoDaily: Codable {
     var dt: UInt
     var sunrise: UInt
     var sunset: UInt
     var temp: Temp
     var feelsLike: FeelsLike
     var weather: [WeatherDescription]
+    
+    enum CodingKeys: String, CodingKey {
+        case dt, sunrise, sunset, temp
+        case feelsLike = "feels_like"
+        case weather
+    }
 }
 
-struct Temp {
+// MARK: - Other
+
+struct WeatherDescription: Codable {
+    var id: Int
+    var main: String
+    var description: String
+    var icon: String
+}
+
+struct Temp: Codable {
     var day: Double
     var min: Double
     var max: Double
@@ -65,7 +77,7 @@ struct Temp {
     var morn: Double
 }
 
-struct FeelsLike {
+struct FeelsLike: Codable {
     var day: Double
     var night: Double
     var eve: Double

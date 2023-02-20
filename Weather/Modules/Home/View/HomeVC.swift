@@ -48,7 +48,7 @@ class HomeVC: UIViewController {
         setupUI()
         configure()
         
-        if let endpoint = EndPoint.getCurrentWeather().request {
+        if let endpoint = EndPoint.getWeatherForecast().request {
             print(endpoint)
         }
         
