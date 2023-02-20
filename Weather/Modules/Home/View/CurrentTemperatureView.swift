@@ -38,6 +38,7 @@ class CurrentTemperatureView: UIStackView {
         super.init(frame: frame)
         
         addViews()
+        configure()
     }
     
     required init(coder: NSCoder) {
@@ -57,7 +58,6 @@ class CurrentTemperatureView: UIStackView {
 extension CurrentTemperatureView {
     
     func configure() {
-    
         lblLocation.text = "4th Cross Road"
         lblCurrentTemp.text = 28.getCelciusFormat()
         lblMaxMinTemp.text = "Max: \(32.getCelciusFormat()) Min:\(28.getCelciusFormat())"

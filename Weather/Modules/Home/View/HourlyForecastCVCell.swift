@@ -18,7 +18,7 @@ class HourlyForecastCVCell: UICollectionViewCell {
         stackView.axis = .vertical
         stackView.alignment = .center
         stackView.distribution = .fill
-        stackView.spacing = 0
+        stackView.spacing = 8
         
         stackView.backgroundColor = .green
         return stackView

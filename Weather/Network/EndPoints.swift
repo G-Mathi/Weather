@@ -47,7 +47,7 @@ enum EndPoint {
         var request = URLRequest(url: url)
         
         request.httpMethod = httpMethod
-//        request.addValues()
+        request.addValues()
         
         return request
     }
