@@ -14,6 +14,34 @@ class HomeVM: NSObject {
     
     var locationManger: CLLocationManager?
     
+    func getWeatherForecast() {
+        let forcastQuery: [URLQueryItem] = [
+            URLQueryItem(name: "lat", value: "51.507351"),
+            URLQueryItem(name: "lon", value: "-0.127758"),
+            URLQueryItem(name: "appid", value: "a013dc27d569ced7c7c5d28937e3b87e")
+        ]
+        
+        guard let request = EndPoint.getWeatherForecast(queryItems: forcastQuery).request else { return }
+        print("\(request) \n")
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error {
+                print("Error is \(error.localizedDescription)")
+            }
+            
+            if let data {
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data)
+                    print(json)
+                    let post = try JSONDecoder().decode(Forecast.self, from: data)
+                    print(post)
+                    print("Hi")
+                } catch(let err) {
+                    print(err)
+                }
+            }
+        }.resume()
+    }
 }
 
 // MARK: - CLLocation Manager

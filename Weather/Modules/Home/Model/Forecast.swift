@@ -28,15 +28,13 @@ struct Forecast: Codable {
 // MARK: - Weather Info
 
 struct WeatherInfo: Codable {
-    var dt: UInt
-    var sunrise: UInt
-    var sunset: UInt
+    var dt: Int
     var temp: Double
     var feelsLike: Double
     var weather: [WeatherDescription]
     
     enum CodingKeys: String, CodingKey {
-        case dt, sunrise, sunset, temp
+        case dt, temp
         case feelsLike = "feels_like"
         case weather
     }
@@ -45,9 +43,9 @@ struct WeatherInfo: Codable {
 // MARK: - Weather Info Daily
 
 struct WeatherInfoDaily: Codable {
-    var dt: UInt
-    var sunrise: UInt
-    var sunset: UInt
+    var dt: Int
+    var sunrise: Int
+    var sunset: Int
     var temp: Temp
     var feelsLike: FeelsLike
     var weather: [WeatherDescription]

@@ -47,7 +47,7 @@ enum EndPoint {
         var request = URLRequest(url: url)
         
         request.httpMethod = httpMethod
-        request.addValues()
+//        request.addValues()
         
         return request
     }
@@ -80,7 +80,7 @@ enum EndPoint {
     private var httpMethod: String {
         switch self {
         case .getWeatherForecast:
-            return HTTP.Method.post.rawValue
+            return HTTP.Method.get.rawValue
         }
     }
     

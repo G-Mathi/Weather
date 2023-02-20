@@ -52,6 +52,8 @@ class HomeVC: UIViewController {
             print(endpoint)
         }
         
+        vm.getWeatherForecast()
+        
         // vm.checkIfLocationServicesEnabled()
     }
     
