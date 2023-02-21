@@ -1,5 +1,5 @@
 //
-//  HomeVM.swift
+//  ForecastVM.swift
 //  Weather
 //
 //  Created by Mathi on 2023-02-18.
@@ -8,7 +8,7 @@
 import Foundation
 import CoreLocation
 
-class HomeVM: NSObject {
+class ForecastVM: NSObject {
     
     // MARK: - Variables
     
@@ -31,12 +31,61 @@ class HomeVM: NSObject {
     func getDailyForecastInfo() -> [WeatherInfoDaily]? {
         return forcast?.daily
     }
+}
+
+// MARK: - Individual Weather Data
+
+extension ForecastVM {
     
+    private func getTime(for timeStamp: Double) -> String {
+        return timeStamp.getOnlyHour()
+    }
+    
+    private func getTemperature(for temp: Double) -> String {
+        return temp.convertTemperature(from: .kelvin, to: .celsius)
+    }
+    
+    private func getIcon(for id: String) -> String {
+        return id.getIconURL()
+    }
+}
+
+// MARK: - Forecast For 24 Hour
+
+extension ForecastVM {
+
+    func getWeatherInfoFor24Hours() -> [HourlyForecast] {
+        var weatherInfo24Hour: [HourlyForecast] = []
+        
+        getHourlyForecastInfo()?.forEach({ weatherInfo in
+            weatherInfo24Hour.append(getWeatherInfoPerHour(for: weatherInfo))
+        })
+        
+        return weatherInfo24Hour
+    }
+    
+    func getWeatherInfoPerHour(for weatherInfoAt: WeatherInfo?) -> HourlyForecast {
+        
+        guard let weatherInfoAt,
+              let timeStamp = weatherInfoAt.dt,
+              let temperature = weatherInfoAt.temp,
+              let icon = weatherInfoAt.weather?.first?.icon
+        else {
+            return HourlyForecast()
+        }
+        
+        let hourlyForecast = HourlyForecast(
+            time: getTime(for: timeStamp),
+            temperature: getTemperature(for: temperature),
+            icon: getIcon(for: icon)
+        )
+        return hourlyForecast
+    }
 }
 
 // MARK: - Requests
 
-extension HomeVM {
+extension ForecastVM {
     
     #warning("Change the completion type")
     func getWeatherForecast(completion: @escaping (Bool) -> Void) {
@@ -73,7 +122,7 @@ extension HomeVM {
 
 // MARK: - CLLocation Manager
 
-extension HomeVM {
+extension ForecastVM {
     
     func checkIfLocationServicesEnabled() {
         
@@ -115,7 +164,7 @@ extension HomeVM {
 
 // MARK: - CLLocation Manager Delegate
 
-extension HomeVM: CLLocationManagerDelegate {
+extension ForecastVM: CLLocationManagerDelegate {
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         checkLocationAuthorization()

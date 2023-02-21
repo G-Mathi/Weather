@@ -9,6 +9,10 @@ import UIKit
 
 class HourlyForecastView: UIView {
     
+    // MARK: - Variables
+    
+    private var vm = HourlyForecastVM()
+    
     // MARK: Components
     
     private var hourlyForecastView: UICollectionView = {
@@ -40,12 +44,20 @@ class HourlyForecastView: UIView {
     }
 }
 
-// MARK: - Set Hourly Forecast View
+// MARK: - Configure
+
+extension HourlyForecastView {
+    
+    func configure(with hourlyWeatherInfo: [HourlyForecast]) {
+        vm.hourlyWeatherInfo = hourlyWeatherInfo
+    }
+}
+
+// MARK: - Set Hourly View
 
 extension HourlyForecastView {
     
     private func setHourlyForecastView() {
-        
         hourlyForecastView.delegate = self
         hourlyForecastView.dataSource = self
         hourlyForecastView.register(HourlyForecastCVCell.self, forCellWithReuseIdentifier: HourlyForecastCVCell.identifier)
@@ -74,8 +86,12 @@ extension HourlyForecastView: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        if let hourlyForeCastCVCell = collectionView.dequeueReusableCell(withReuseIdentifier: HourlyForecastCVCell.identifier, for: indexPath) as? HourlyForecastCVCell {
-            hourlyForeCastCVCell.configure()
+        if let hourlyForeCastCVCell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: HourlyForecastCVCell.identifier,
+            for: indexPath) as? HourlyForecastCVCell {
+            
+            hourlyForeCastCVCell.configure(with: vm.getWeatherInfo(at: indexPath.row))
+            
             return hourlyForeCastCVCell
         }
         

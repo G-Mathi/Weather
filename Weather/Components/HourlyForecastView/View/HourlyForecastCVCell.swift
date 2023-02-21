@@ -77,10 +77,10 @@ class HourlyForecastCVCell: UICollectionViewCell {
 
 extension HourlyForecastCVCell {
     
-    func configure() {
-        lblTime.text = "15"
+    func configure(with model: HourlyForecast) {
+        lblTime.text = model.time
         imageView.image = UIImage(systemName: "person")
-        lblTemperature.text = 28.getCelciusFormat()
+        lblTemperature.text = model.temperature
     }
 }
 

@@ -30,6 +30,7 @@ class ForecastViewHeader: UIView {
         return stackView
     }()
     
+    /// Hourly Temperature View
     private var hourlyForecastView: HourlyForecastView = {
         let view = HourlyForecastView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -63,8 +64,8 @@ class ForecastViewHeader: UIView {
 
 extension ForecastViewHeader {
     
-    func configure() {
-        
+    func configure(with vm: ForecastVM) {
+        hourlyForecastView.configure(with: vm.getWeatherInfoFor24Hours())
     }
 }
 
