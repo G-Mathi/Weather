@@ -15,6 +15,16 @@ class HomeVC: UIViewController {
     
     // MARK: Components
     
+    /// Current Temperature View
+    private var currentTemperatureView: CurrentTemperatureView = {
+        let stackView = CurrentTemperatureView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.layer.cornerRadius = 12
+        
+        stackView.backgroundColor = .orange
+        return stackView
+    }()
+    
     private var forecastTableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -54,6 +64,7 @@ class HomeVC: UIViewController {
         self.title = "Home"
         view.backgroundColor = .systemBackground
         
+        setCurrentTemperatureView()
         setDailyForecastView()
         setForcastViewHeader()
     }
@@ -62,6 +73,23 @@ class HomeVC: UIViewController {
     
     private func configure() {
         
+    }
+}
+
+// MARK: - Set Current Temperature View
+
+extension HomeVC {
+    
+    private func setCurrentTemperatureView() {
+        view.addSubview(currentTemperatureView)
+        
+        let safeArea = view.safeAreaLayoutGuide
+        let constraintsCurrentTemperatureView = [
+            currentTemperatureView.topAnchor.constraint(equalTo: safeArea.topAnchor),
+            currentTemperatureView.rightAnchor.constraint(equalTo: safeArea.rightAnchor),
+            currentTemperatureView.leftAnchor.constraint(equalTo: safeArea.leftAnchor)
+        ]
+        NSLayoutConstraint.activate(constraintsCurrentTemperatureView)
     }
 }
 
@@ -78,7 +106,7 @@ extension HomeVC {
         
         let safeArea = view.safeAreaLayoutGuide
         let constraintsDailyView = [
-            forecastTableView.topAnchor.constraint(equalTo: safeArea.topAnchor),
+            forecastTableView.topAnchor.constraint(equalTo: currentTemperatureView.bottomAnchor),
             forecastTableView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
             forecastTableView.leftAnchor.constraint(equalTo: safeArea.leftAnchor),
             forecastTableView.rightAnchor.constraint(equalTo: safeArea.rightAnchor)
