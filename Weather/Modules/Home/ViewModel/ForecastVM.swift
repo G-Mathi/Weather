@@ -10,6 +10,19 @@ import CoreLocation
 
 class ForecastVM: NSObject {
     
+    #warning("Need to relocate where good")
+    // MARK: - Weather Data for 7 Days
+    
+    var dailyWeatherInfo: [DailyForecast] = []
+    
+    func getWeatherInfo(at index: Int) -> DailyForecast {
+        return dailyWeatherInfo[index]
+    }
+    
+    func getWeatherDataCount() -> Int {
+        return dailyWeatherInfo.count
+    }
+    
     // MARK: - Variables
     
     var forecast: Forecast?
@@ -40,6 +53,10 @@ extension ForecastVM {
     
     private func getTime(for timeStamp: Double) -> String {
         return timeStamp.getOnlyHour()
+    }
+    
+    private func getDay(for timeStamp: Double) -> String {
+        return timeStamp.getOnlyDay()
     }
     
     private func getTemperature(for temp: Double) -> String {
@@ -88,19 +105,19 @@ extension ForecastVM {
     func getWeatherInfoFor24Hours() -> [HourlyForecast] {
         var weatherInfo24Hour: [HourlyForecast] = []
         
-        getHourlyForecastInfo()?.forEach({ weatherInfo in
-            weatherInfo24Hour.append(getWeatherInfoPerHour(for: weatherInfo))
+        getHourlyForecastInfo()?.forEach({ weatherInfoHour in
+            weatherInfo24Hour.append(getWeatherInfoPerHour(for: weatherInfoHour))
         })
         
         return weatherInfo24Hour
     }
     
-    func getWeatherInfoPerHour(for weatherInfoAt: WeatherInfo?) -> HourlyForecast {
+    func getWeatherInfoPerHour(for weatherInfoHour: WeatherInfo?) -> HourlyForecast {
         
-        guard let weatherInfoAt,
-              let timeStamp = weatherInfoAt.dt,
-              let temperature = weatherInfoAt.temp,
-              let icon = weatherInfoAt.weather?.first?.icon
+        guard let weatherInfoHour,
+              let timeStamp = weatherInfoHour.dt,
+              let temperature = weatherInfoHour.temp,
+              let weatherIcon = weatherInfoHour.weather?.first?.icon
         else {
             return HourlyForecast()
         }
@@ -108,9 +125,44 @@ extension ForecastVM {
         let hourlyForecast = HourlyForecast(
             time: getTime(for: timeStamp),
             temperature: getTemperature(for: temperature),
-            icon: getIcon(for: icon)
+            icon: getIcon(for: weatherIcon)
         )
         return hourlyForecast
+    }
+}
+
+// MARK: - Forecast For 7 Days
+
+extension ForecastVM {
+    
+    func getWeatherInfoFor7Days() -> [DailyForecast] {
+        var weatherFor7Days: [DailyForecast] = []
+        
+        getDailyForecastInfo()?.forEach({ weatherInfoDay in
+            weatherFor7Days.append(getWeatherInfoPerDay(for: weatherInfoDay))
+        })
+        
+        return weatherFor7Days
+    }
+    
+    func getWeatherInfoPerDay(for weatherInfoDay: WeatherInfoDaily?) -> DailyForecast {
+        
+        guard let weatherInfoDay,
+              let timeStamp = weatherInfoDay.dt,
+              let minTemp = weatherInfoDay.temp?.min,
+              let maxTemp = weatherInfoDay.temp?.max,
+              let weatherIcon = weatherInfoDay.weather?.first?.icon
+        else {
+            return DailyForecast()
+        }
+        
+        let dailyForecast = DailyForecast(
+            day: getDay(for: timeStamp),
+            icon: getIcon(for: weatherIcon),
+            minTemperature: getTemperature(for: minTemp),
+            maxTemperature: getTemperature(for: maxTemp)
+        )
+        return dailyForecast
     }
 }
 

@@ -134,7 +134,7 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let dailyForecastCell = tableView.dequeueReusableCell(withIdentifier: DailyForecastTVCell.identifier, for: indexPath) as? DailyForecastTVCell {
-            dailyForecastCell.configure()
+            dailyForecastCell.configure(with: vm.getWeatherInfo(at: indexPath.row))
             return dailyForecastCell
         }
         return UITableViewCell()
