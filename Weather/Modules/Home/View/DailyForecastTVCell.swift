@@ -2,10 +2,17 @@
 //  DailyForecastTVCell.swift
 //  Weather
 //
-//  Created by dilax on 2023-02-20.
+//  Created by Mathi on 2023-02-20.
 //
 
 import UIKit
+
+struct DailyForecast {
+    var day: String = ""
+    var icon: String = ""
+    var minTemperature: String = ""
+    var maxTemperature: String = ""
+}
 
 class DailyForecastTVCell: UITableViewCell {
     static let identifier = "DailyForecastTVCell"
@@ -20,7 +27,8 @@ class DailyForecastTVCell: UITableViewCell {
         stackView.distribution = .fill
         stackView.spacing = 12
         
-//        stackView.backgroundColor = .yellow
+        #warning("Remove")
+        stackView.backgroundColor = .yellow
         return stackView
     }()
     
@@ -29,8 +37,18 @@ class DailyForecastTVCell: UITableViewCell {
         label.numberOfLines = 1
         label.font = .systemFont(ofSize: 16)
         
+        #warning("Remove")
         label.backgroundColor = .green
         return label
+    }()
+    
+    private let imageViewWeatherIcon: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.layer.masksToBounds = true
+        imageView.backgroundColor = .clear
+        return imageView
     }()
     
     /// Temperatire Min Max View
@@ -41,11 +59,19 @@ class DailyForecastTVCell: UITableViewCell {
         stackView.distribution = .fill
         stackView.spacing = 12
         
+        #warning("Remove")
         stackView.backgroundColor = .white
         return stackView
     }()
     
     private var lblMinTemperature: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 1
+        label.font = .systemFont(ofSize: 16)
+        return label
+    }()
+    
+    private var lblMaxTemperature: UILabel = {
         let label = UILabel()
         label.numberOfLines = 1
         label.font = .systemFont(ofSize: 16)
@@ -60,13 +86,6 @@ class DailyForecastTVCell: UITableViewCell {
         return progressView
     }()
     
-    private var lblMaxTemperature: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 1
-        label.font = .systemFont(ofSize: 16)
-        return label
-    }()
-    
     // MARK: - Init View
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -78,6 +97,7 @@ class DailyForecastTVCell: UITableViewCell {
         addViews()
         addMinMaxViews()
         
+        #warning("Remove")
         contentView.backgroundColor = .link
     }
     
@@ -89,7 +109,6 @@ class DailyForecastTVCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
         setMinMaxView()
     }
     
@@ -97,25 +116,33 @@ class DailyForecastTVCell: UITableViewCell {
         super.prepareForReuse()
         
         lblDay.text = nil
+        lblMinTemperature.text = nil
+        lblMaxTemperature.text = nil
+        imageViewWeatherIcon.image = nil
     }
 }
 
-// MARK: - Set UI
+// MARK: - Configure
+
+extension DailyForecastTVCell {
+    
+    func configure(with model: DailyForecast) {
+        lblDay.text = model.day
+        lblMinTemperature.text = model.minTemperature
+        lblMaxTemperature.text = model.maxTemperature
+        imageViewWeatherIcon.image = UIImage(systemName: "person")
+        progressBar.progress = 0.6
+    }
+}
+
+// MARK: - SetUI
 
 extension DailyForecastTVCell {
     
     private func addViews() {
         contentView.addSubview(container)
         container.addArrangedSubview(lblDay)
-//        container.addArrangedSubview(UIView())
         container.addArrangedSubview(containerMinMax)
-    }
-    
-    // MARK: - Configure
-    
-    func configure() {
-        lblDay.text = "Monday"
-        configureMinMaxView()
     }
 }
 
@@ -131,13 +158,5 @@ extension DailyForecastTVCell {
         containerMinMax.addArrangedSubview(lblMinTemperature)
         containerMinMax.addArrangedSubview(progressBar)
         containerMinMax.addArrangedSubview(lblMaxTemperature)
-    }
-    
-    // MARK: - Configure MinMaxView
-    
-    func configureMinMaxView() {
-        lblMinTemperature.text = 28.0.convertTemperature(from: .kelvin, to: .celsius)
-        progressBar.progress = 0.65
-        lblMaxTemperature.text = 33.0.convertTemperature(from: .kelvin, to: .celsius)
     }
 }

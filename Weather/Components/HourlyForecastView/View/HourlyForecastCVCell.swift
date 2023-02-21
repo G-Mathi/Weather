@@ -31,9 +31,12 @@ class HourlyForecastCVCell: UICollectionViewCell {
         return label
     }()
     
-    private let imageView: UIImageView = {
+    private let imageViewWeatherIcon: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.layer.masksToBounds = true
+        imageView.backgroundColor = .clear
         return imageView
     }()
     
@@ -68,7 +71,7 @@ class HourlyForecastCVCell: UICollectionViewCell {
         super.prepareForReuse()
         
         lblTime.text = nil
-        imageView.image = nil
+        imageViewWeatherIcon.image = nil
         lblTemperature.text = nil
     }
 }
@@ -79,7 +82,7 @@ extension HourlyForecastCVCell {
     
     func configure(with model: HourlyForecast) {
         lblTime.text = model.time
-        imageView.image = UIImage(systemName: "person")
+        imageViewWeatherIcon.image = UIImage(systemName: "person")
         lblTemperature.text = model.temperature
     }
 }
@@ -91,7 +94,7 @@ extension HourlyForecastCVCell {
     private func addViews() {
         contentView.addSubview(container)
         container.addArrangedSubview(lblTime)
-        container.addArrangedSubview(imageView)
+        container.addArrangedSubview(imageViewWeatherIcon)
         container.addArrangedSubview(lblTemperature)
     }
     
