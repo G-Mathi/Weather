@@ -7,6 +7,12 @@
 
 import UIKit
 
+struct CurrentLocationInfo {
+    var location: String = ""
+    var currentTemperatire: String = ""
+    var minMaxTemperature: String = ""
+}
+
 class CurrentTemperatureView: UIStackView {
 
     // MARK: - Components
@@ -55,17 +61,10 @@ class CurrentTemperatureView: UIStackView {
 
 extension CurrentTemperatureView {
     
-    func configure(with currentWeatherInfo: WeatherInfo) {
-        
-        #warning("Set the values")
-        lblLocation.text = "4th Cross Road"
-        
-        if let currentTemperature = currentWeatherInfo.temp?.convertTemperature(from: .kelvin, to: .celsius) {
-            lblCurrentTemp.text = currentTemperature
-        }
-        
-        
-        lblMaxMinTemp.text = ""//"Max: \(32.getCelciusFormat()) Min:\(28.getCelciusFormat())"
+    func configure(with model: CurrentLocationInfo) {
+        lblLocation.text = model.location
+        lblCurrentTemp.text = model.currentTemperatire
+        lblMaxMinTemp.text = model.minMaxTemperature
     }
 }
 
@@ -73,17 +72,17 @@ extension CurrentTemperatureView {
 
 extension CurrentTemperatureView {
     
+    private func addViews() {
+        self.addArrangedSubview(lblLocation)
+        self.addArrangedSubview(lblCurrentTemp)
+        self.addArrangedSubview(lblMaxMinTemp)
+    }
+    
     private func setUI() {
        self.axis = .vertical
        self.alignment = .center
        self.distribution = .fill
        self.spacing = 0
-    }
-    
-    private func addViews() {
-        self.addArrangedSubview(lblLocation)
-        self.addArrangedSubview(lblCurrentTemp)
-        self.addArrangedSubview(lblMaxMinTemp)
     }
 }
 
