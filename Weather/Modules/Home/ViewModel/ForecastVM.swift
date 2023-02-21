@@ -12,30 +12,31 @@ class ForecastVM: NSObject {
     
     // MARK: - Variables
     
-    var forcast: Forecast?
+    var forecast: Forecast?
     
     var locationManger: CLLocationManager?
     
-    func getCurrentLocationName(with coordinates: CLLocationCoordinate2D) {
-        
-    }
     
     func getCurrentTemperatureInfo() -> WeatherInfo? {
-        return forcast?.current
+        return forecast?.current
     }
     
     func getHourlyForecastInfo() -> [WeatherInfo]? {
-        return forcast?.hourly
+        return forecast?.hourly
     }
     
     func getDailyForecastInfo() -> [WeatherInfoDaily]? {
-        return forcast?.daily
+        return forecast?.daily
     }
 }
 
-// MARK: - Individual Weather Data
+// MARK: - Display Format Helper
 
 extension ForecastVM {
+    
+    func getLocationNameFor(lat: Double, lon: Double) -> String {
+        return String()
+    }
     
     private func getTime(for timeStamp: Double) -> String {
         return timeStamp.getOnlyHour()
@@ -47,6 +48,36 @@ extension ForecastVM {
     
     private func getIcon(for id: String) -> String {
         return id.getIconURL()
+    }
+    
+    private func getMinMaxCurrentDay(min: Double, max: Double) -> String {
+        return "Min: \(getTemperature(for: min)) Max: \(getTemperature(for: max))"
+    }
+}
+
+// MARK: - Current Location Info
+
+extension ForecastVM {
+    
+    func getCurrentLocationInfo() -> CurrentLocationInfo {
+        
+        guard let forecast,
+              let lat = forecast.lat,
+              let lon = forecast.lon,
+              let currentTemperature = forecast.current?.temp,
+              let currentDay = forecast.daily?.first,
+              let minTemp = currentDay.temp?.min,
+              let maxTemp = currentDay.temp?.max
+        else {
+            return CurrentLocationInfo()
+        }
+        
+        var currentLocationInfo = CurrentLocationInfo(
+            location: getLocationNameFor(lat: lat, lon: lon),
+            currentTemperatire: getTemperature(for: currentTemperature),
+            minMaxTemperature: getMinMaxCurrentDay(min: minTemp, max: maxTemp)
+        )
+        return currentLocationInfo
     }
 }
 
@@ -106,7 +137,7 @@ extension ForecastVM {
             if let data {
                 do {
                     let forecast = try JSONDecoder().decode(Forecast.self, from: data)
-                    self?.forcast = forecast
+                    self?.forecast = forecast
                     
                     #warning("Remove")
                     print(forecast)

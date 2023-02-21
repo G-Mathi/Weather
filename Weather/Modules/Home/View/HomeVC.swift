@@ -72,7 +72,7 @@ class HomeVC: UIViewController {
     // MARK: - Configure
     
     private func configure() {
-        
+        currentTemperatureView.configure(with: vm.getCurrentLocationInfo())
     }
 }
 
