@@ -11,7 +11,7 @@ class HomeVC: UIViewController {
 
     // MARK: - Variables
     
-    private var vm = HomeVM()
+    private var vm = ForecastVM()
     
     // MARK: Components
     

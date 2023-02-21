@@ -28,7 +28,7 @@ struct Forecast: Codable {
 // MARK: - Weather Info
 
 struct WeatherInfo: Codable {
-    var dt: Int?
+    var dt: Double?
     var temp: Double?
     var feelsLike: Double?
     var weather: [WeatherDescription]?
@@ -43,9 +43,9 @@ struct WeatherInfo: Codable {
 // MARK: - Weather Info Daily
 
 struct WeatherInfoDaily: Codable {
-    var dt: Int?
-    var sunrise: Int?
-    var sunset: Int?
+    var dt: Double?
+    var sunrise: Double?
+    var sunset: Double?
     var temp: Temp?
     var feelsLike: FeelsLike?
     var weather: [WeatherDescription]?
