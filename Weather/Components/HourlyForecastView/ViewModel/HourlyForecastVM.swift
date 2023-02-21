@@ -20,6 +20,10 @@ class HourlyForecastVM {
     func getWeatherInfo(at index: Int) -> HourlyForecast {
         return hourlyWeatherInfo[index]
     }
+    
+    func getWeatherDataCount() -> Int {
+        return hourlyWeatherInfo.count
+    }
 }
     
     
