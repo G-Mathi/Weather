@@ -12,9 +12,34 @@ class HomeVM: NSObject {
     
     // MARK: - Variables
     
+    var forcast: Forecast?
+    
     var locationManger: CLLocationManager?
     
-    func getWeatherForecast() {
+    func getCurrentLocationName(with coordinates: CLLocationCoordinate2D) {
+        
+    }
+    
+    func getCurrentTemperatureInfo() -> WeatherInfo? {
+        return forcast?.current
+    }
+    
+    func getHourlyForecastInfo() -> [WeatherInfo]? {
+        return forcast?.hourly
+    }
+    
+    func getDailyForecastInfo() -> [WeatherInfoDaily]? {
+        return forcast?.daily
+    }
+    
+}
+
+// MARK: - Requests
+
+extension HomeVM {
+    
+    #warning("Change the completion type")
+    func getWeatherForecast(completion: @escaping (Bool) -> Void) {
         let forcastQuery: [URLQueryItem] = [
             URLQueryItem(name: "lat", value: "51.507351"),
             URLQueryItem(name: "lon", value: "-0.127758"),
@@ -23,16 +48,22 @@ class HomeVM: NSObject {
         
         guard let request = EndPoint.getWeatherForecast(queryItems: forcastQuery).request else { return }
         
-        URLSession.shared.dataTask(with: request) { data, response, error in
+        URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
             if let error {
+                #warning("handle error")
                 print("Error is \(error.localizedDescription)")
             }
             
             if let data {
                 do {
-                    let post = try JSONDecoder().decode(Forecast.self, from: data)
-                    print(post)
+                    let forecast = try JSONDecoder().decode(Forecast.self, from: data)
+                    self?.forcast = forecast
+                    
+                    #warning("Remove")
+                    print(forecast)
+                    
                 } catch(let err) {
+                    #warning("handle error")
                     print(err)
                 }
             }
@@ -51,6 +82,7 @@ extension HomeVM {
             locationManger?.desiredAccuracy = kCLLocationAccuracyBest
             locationManger?.delegate = self
         } else {
+            #warning("Show alert to enable location")
             // Show alert
         }
     }
@@ -62,9 +94,11 @@ extension HomeVM {
         case .notDetermined:
             locationManger.requestWhenInUseAuthorization()
         case .restricted:
+            #warning("Show alert to enable location")
             // Show alert for restricted. eg => Parental control
             break
         case .denied:
+            #warning("Show alert to enable location")
             // Show alert to allow location again
             break
         case .authorizedAlways, .authorizedWhenInUse:
@@ -72,6 +106,7 @@ extension HomeVM {
             print("Coordinates: \(location.coordinate)")
             break
         @unknown default:
+            #warning("Show alert for unknown")
             // Show Alert for unknown
             break
         }

@@ -1,5 +1,5 @@
 //
-//  sample.swift
+//  ForecastViewHeader.swift
 //  Weather
 //
 //  Created by Mathi on 2023-02-20.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class Header: UIView {
+class ForecastViewHeader: UIView {
 
     // MARK: - Components
     
@@ -61,7 +61,7 @@ class Header: UIView {
 
 // MARK: - Configure
 
-extension Header {
+extension ForecastViewHeader {
     
     func configure() {
         
@@ -70,7 +70,7 @@ extension Header {
 
 // MARK: - SetUI
 
-extension Header {
+extension ForecastViewHeader {
     
     private func addViews() {
         self.addSubview(container)

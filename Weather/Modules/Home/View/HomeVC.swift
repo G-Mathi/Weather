@@ -15,7 +15,7 @@ class HomeVC: UIViewController {
     
     // MARK: Components
     
-    private var dailyForecastView: UITableView = {
+    private var forecastTableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.separatorStyle = .none
@@ -23,14 +23,9 @@ class HomeVC: UIViewController {
         return tableView
     }()
     
-    /// Current Temperature StackView
-    private var currentTemperatureView: CurrentTemperatureView = {
-        let stackView = CurrentTemperatureView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.layer.cornerRadius = 12
-        
-        stackView.backgroundColor = .orange
-        return stackView
+    private var forcastViewHeader: UIView = {
+        let header = ForecastViewHeader()
+        return header
     }()
     
     // MARK: - View LifeCycle
@@ -41,7 +36,14 @@ class HomeVC: UIViewController {
         setupUI()
         configure()
         
-//        vm.getWeatherForecast()
+        #warning("Find better solution")
+        vm.getWeatherForecast { success in
+            if success {
+                
+            } else {
+                
+            }
+        }
         
         // vm.checkIfLocationServicesEnabled()
     }
@@ -52,9 +54,8 @@ class HomeVC: UIViewController {
         self.title = "Home"
         view.backgroundColor = .systemBackground
         
-//        setTemperatureView()
-//        setHourlyForecastView()
         setDailyForecastView()
+        setForcastViewHeader()
     }
     
     // MARK: - Configure
@@ -64,49 +65,30 @@ class HomeVC: UIViewController {
     }
 }
 
-// MARK: - Set Temperature View
-
-extension HomeVC {
-    
-    private func setTemperatureView() {
-        view.addSubview(currentTemperatureView)
-        
-        let safeArea = view.safeAreaLayoutGuide
-        let constraintsCurrentTempView = [
-            currentTemperatureView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 30),
-            currentTemperatureView.leftAnchor.constraint(equalTo: safeArea.leftAnchor, constant: 30),
-            currentTemperatureView.rightAnchor.constraint(equalTo: safeArea.rightAnchor, constant: -30)
-        ]
-        NSLayoutConstraint.activate(constraintsCurrentTempView)
-        
-        currentTemperatureView.configure()
-    }
-}
-
 // MARK: - Set Daily Forecast View
 
 extension HomeVC {
     
     private func setDailyForecastView() {
-        view.addSubview(dailyForecastView)
+        view.addSubview(forecastTableView)
         
-        dailyForecastView.delegate = self
-        dailyForecastView.dataSource = self
-        
-        let header = Header(frame: CGRect(x: 0, y: 0, width: dailyForecastView.frame.size.width, height: 200))
-        dailyForecastView.tableHeaderView = header
-        
-        dailyForecastView.register(DailyForecastTVCell.self, forCellReuseIdentifier: DailyForecastTVCell.identifier)
-        
+        forecastTableView.delegate = self
+        forecastTableView.dataSource = self
+        forecastTableView.register(DailyForecastTVCell.self, forCellReuseIdentifier: DailyForecastTVCell.identifier)
         
         let safeArea = view.safeAreaLayoutGuide
         let constraintsDailyView = [
-            dailyForecastView.topAnchor.constraint(equalTo: safeArea.topAnchor),
-            dailyForecastView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
-            dailyForecastView.leftAnchor.constraint(equalTo: safeArea.leftAnchor),
-            dailyForecastView.rightAnchor.constraint(equalTo: safeArea.rightAnchor)
+            forecastTableView.topAnchor.constraint(equalTo: safeArea.topAnchor),
+            forecastTableView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
+            forecastTableView.leftAnchor.constraint(equalTo: safeArea.leftAnchor),
+            forecastTableView.rightAnchor.constraint(equalTo: safeArea.rightAnchor)
         ]
         NSLayoutConstraint.activate(constraintsDailyView)
+    }
+    
+    private func setForcastViewHeader() {
+        forcastViewHeader.frame = CGRect(x: 0, y: 0, width: forecastTableView.frame.size.width, height: 200)
+        forecastTableView.tableHeaderView = forcastViewHeader
     }
 }
 
