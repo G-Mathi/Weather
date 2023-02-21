@@ -37,6 +37,16 @@ extension Double {
         
         return dateFormatter.string(from: date)
     }
+    
+    func getOnlyDay() -> String {
+        let date = Date(timeIntervalSince1970: self)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = DateFormatter.Style.short
+        dateFormatter.dateFormat = "EEEE"
+        dateFormatter.timeZone = .current
+        
+        return dateFormatter.string(from: date)
+    }
 }
 
 // MARK: - Get WeatherIcon URL
