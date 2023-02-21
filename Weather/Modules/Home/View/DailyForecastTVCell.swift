@@ -136,8 +136,8 @@ extension DailyForecastTVCell {
     // MARK: - Configure MinMaxView
     
     func configureMinMaxView() {
-        lblMinTemperature.text = 28.getCelciusFormat()
+        lblMinTemperature.text = 28.0.convertTemperature(from: .kelvin, to: .celsius)
         progressBar.progress = 0.65
-        lblMaxTemperature.text = 33.getCelciusFormat()
+        lblMaxTemperature.text = 33.0.convertTemperature(from: .kelvin, to: .celsius)
     }
 }

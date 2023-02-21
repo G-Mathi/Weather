@@ -36,9 +36,7 @@ class CurrentTemperatureView: UIStackView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         addViews()
-        configure()
     }
     
     required init(coder: NSCoder) {
@@ -57,10 +55,17 @@ class CurrentTemperatureView: UIStackView {
 
 extension CurrentTemperatureView {
     
-    func configure() {
+    func configure(with currentWeatherInfo: WeatherInfo) {
+        
+        #warning("Set the values")
         lblLocation.text = "4th Cross Road"
-        lblCurrentTemp.text = 28.getCelciusFormat()
-        lblMaxMinTemp.text = "Max: \(32.getCelciusFormat()) Min:\(28.getCelciusFormat())"
+        
+        if let currentTemperature = currentWeatherInfo.temp?.convertTemperature(from: .kelvin, to: .celsius) {
+            lblCurrentTemp.text = currentTemperature
+        }
+        
+        
+        lblMaxMinTemp.text = ""//"Max: \(32.getCelciusFormat()) Min:\(28.getCelciusFormat())"
     }
 }
 
