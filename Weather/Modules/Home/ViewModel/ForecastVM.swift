@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import CoreLocation
 
 class ForecastVM: NSObject {
     
@@ -22,8 +21,6 @@ class ForecastVM: NSObject {
     func getWeatherDataCount() -> Int {
         return dailyWeatherInfo.count
     }
-    
-    var locationManger: CLLocationManager?
     
     // MARK: - Variables
     
@@ -51,18 +48,27 @@ class ForecastVM: NSObject {
     }
 }
 
-// MARK: - Requests
+// MARK: - Get CUrrent Location
 
 extension ForecastVM {
     
-    #warning("Change the completion type")
+    func getCurrentLocation() {
+        LocationManager.shared
+    }
+}
+
+// MARK: - Requests
+
+extension ForecastVM {
+     
     func getWeatherForecast(at request: WeatherRequest, completion: @escaping (Bool) -> Void) {
         request.getWeatherData { [weak self] result in
             switch result {
             case .success(let forecast):
                 self?.forecast = forecast
                 completion(true)
-            case .failure(let failure):
+            case .failure(let error):
+                print(error)
                 completion(false)
             }
         }
@@ -189,56 +195,5 @@ extension ForecastVM {
             maxTemperature: getTemperature(for: maxTemp)
         )
         return dailyForecast
-    }
-}
-
-// MARK: - CLLocation Manager
-
-extension ForecastVM {
-    
-    func checkIfLocationServicesEnabled() {
-        
-        if CLLocationManager.locationServicesEnabled() {
-            locationManger = CLLocationManager()
-            locationManger?.desiredAccuracy = kCLLocationAccuracyBest
-            locationManger?.delegate = self
-        } else {
-            #warning("Show alert to enable location")
-            // Show alert
-        }
-    }
-    
-    private func checkLocationAuthorization() {
-        guard let locationManger = locationManger else { return }
-        
-        switch locationManger.authorizationStatus {
-        case .notDetermined:
-            locationManger.requestWhenInUseAuthorization()
-        case .restricted:
-            #warning("Show alert to enable location")
-            // Show alert for restricted. eg => Parental control
-            break
-        case .denied:
-            #warning("Show alert to enable location")
-            // Show alert to allow location again
-            break
-        case .authorizedAlways, .authorizedWhenInUse:
-            guard let location = locationManger.location else { return }
-            print("Coordinates: \(location.coordinate)")
-            break
-        @unknown default:
-            #warning("Show alert for unknown")
-            // Show Alert for unknown
-            break
-        }
-    }
-}
-
-// MARK: - CLLocation Manager Delegate
-
-extension ForecastVM: CLLocationManagerDelegate {
-    
-    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        checkLocationAuthorization()
     }
 }
