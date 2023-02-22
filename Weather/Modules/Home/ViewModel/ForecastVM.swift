@@ -89,7 +89,7 @@ extension ForecastVM {
             return CurrentLocationInfo()
         }
         
-        var currentLocationInfo = CurrentLocationInfo(
+        let currentLocationInfo = CurrentLocationInfo(
             location: getLocationNameFor(lat: lat, lon: lon),
             currentTemperatire: getTemperature(for: currentTemperature),
             minMaxTemperature: getMinMaxCurrentDay(min: minTemp, max: maxTemp)
