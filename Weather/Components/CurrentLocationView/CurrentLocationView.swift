@@ -1,5 +1,5 @@
 //
-//  CurrentTemperatureView.swift
+//  CurrentLocationView.swift
 //  Weather
 //
 //  Created by Mathi on 2023-02-19.
@@ -13,7 +13,7 @@ struct CurrentLocationInfo {
     var minMaxTemperature: String = ""
 }
 
-class CurrentTemperatureView: UIStackView {
+class CurrentLocationView: UIStackView {
 
     // MARK: - Components
     
@@ -59,7 +59,7 @@ class CurrentTemperatureView: UIStackView {
 
 // MARK: - Configure
 
-extension CurrentTemperatureView {
+extension CurrentLocationView {
     
     func configure(with model: CurrentLocationInfo) {
         lblLocation.text = model.location
@@ -70,7 +70,7 @@ extension CurrentTemperatureView {
 
 // MARK: - SetUI
 
-extension CurrentTemperatureView {
+extension CurrentLocationView {
     
     private func addViews() {
         self.addArrangedSubview(lblLocation)

@@ -16,8 +16,8 @@ class HomeVC: UIViewController {
     // MARK: Components
     
     /// Current Temperature View
-    private var currentTemperatureView: CurrentTemperatureView = {
-        let stackView = CurrentTemperatureView()
+    private var currentLocationView: CurrentLocationView = {
+        let stackView = CurrentLocationView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.layer.cornerRadius = 12
         
@@ -33,7 +33,7 @@ class HomeVC: UIViewController {
         return tableView
     }()
     
-    private var forcastViewHeader: UIView = {
+    private var forcastViewHeader: ForecastViewHeader = {
         let header = ForecastViewHeader()
         return header
     }()
@@ -47,9 +47,12 @@ class HomeVC: UIViewController {
         configure()
         
         #warning("Find better solution")
-        vm.getWeatherForecast { success in
+        let currentLocationRequest = vm.prepLocationForRequest(location: (51.507351, -0.127758))
+        vm.getWeatherForecast(at: currentLocationRequest) { [weak self] success in
             if success {
-                
+                DispatchQueue.main.async { [weak self] in
+                    self?.configure()
+                }
             } else {
                 
             }
@@ -72,7 +75,12 @@ class HomeVC: UIViewController {
     // MARK: - Configure
     
     private func configure() {
-        currentTemperatureView.configure(with: vm.getCurrentLocationInfo())
+        currentLocationView.configure(with: vm.getCurrentLocationInfo())
+        forcastViewHeader.configure(with: vm)
+        
+        // Need configuration method for this
+        vm.dailyWeatherInfo = vm.getWeatherInfoFor7Days()
+        forecastTableView.reloadData()
     }
 }
 
@@ -81,13 +89,13 @@ class HomeVC: UIViewController {
 extension HomeVC {
     
     private func setCurrentTemperatureView() {
-        view.addSubview(currentTemperatureView)
+        view.addSubview(currentLocationView)
         
         let safeArea = view.safeAreaLayoutGuide
         let constraintsCurrentTemperatureView = [
-            currentTemperatureView.topAnchor.constraint(equalTo: safeArea.topAnchor),
-            currentTemperatureView.rightAnchor.constraint(equalTo: safeArea.rightAnchor),
-            currentTemperatureView.leftAnchor.constraint(equalTo: safeArea.leftAnchor)
+            currentLocationView.topAnchor.constraint(equalTo: safeArea.topAnchor),
+            currentLocationView.rightAnchor.constraint(equalTo: safeArea.rightAnchor),
+            currentLocationView.leftAnchor.constraint(equalTo: safeArea.leftAnchor)
         ]
         NSLayoutConstraint.activate(constraintsCurrentTemperatureView)
     }
@@ -106,7 +114,7 @@ extension HomeVC {
         
         let safeArea = view.safeAreaLayoutGuide
         let constraintsDailyView = [
-            forecastTableView.topAnchor.constraint(equalTo: currentTemperatureView.bottomAnchor),
+            forecastTableView.topAnchor.constraint(equalTo: currentLocationView.bottomAnchor),
             forecastTableView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
             forecastTableView.leftAnchor.constraint(equalTo: safeArea.leftAnchor),
             forecastTableView.rightAnchor.constraint(equalTo: safeArea.rightAnchor)
@@ -129,7 +137,7 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 40
+        return vm.getWeatherDataCount()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

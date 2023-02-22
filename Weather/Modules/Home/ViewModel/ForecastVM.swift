@@ -23,12 +23,20 @@ class ForecastVM: NSObject {
         return dailyWeatherInfo.count
     }
     
+    var locationManger: CLLocationManager?
+    
     // MARK: - Variables
     
     var forecast: Forecast?
     
-    var locationManger: CLLocationManager?
-    
+    func prepLocationForRequest(location: (lat: Double, lon: Double)) -> WeatherRequest {
+        let weatherRequest = WeatherRequest(
+            lat: location.lat,
+            lon: location.lon,
+            appID: "a013dc27d569ced7c7c5d28937e3b87e"
+        )
+        return weatherRequest
+    }
     
     func getCurrentTemperatureInfo() -> WeatherInfo? {
         return forecast?.current
@@ -40,6 +48,24 @@ class ForecastVM: NSObject {
     
     func getDailyForecastInfo() -> [WeatherInfoDaily]? {
         return forecast?.daily
+    }
+}
+
+// MARK: - Requests
+
+extension ForecastVM {
+    
+    #warning("Change the completion type")
+    func getWeatherForecast(at request: WeatherRequest, completion: @escaping (Bool) -> Void) {
+        request.getWeatherData { [weak self] result in
+            switch result {
+            case .success(let forecast):
+                self?.forecast = forecast
+                completion(true)
+            case .failure(let failure):
+                completion(false)
+            }
+        }
     }
 }
 
@@ -163,43 +189,6 @@ extension ForecastVM {
             maxTemperature: getTemperature(for: maxTemp)
         )
         return dailyForecast
-    }
-}
-
-// MARK: - Requests
-
-extension ForecastVM {
-    
-    #warning("Change the completion type")
-    func getWeatherForecast(completion: @escaping (Bool) -> Void) {
-        let forcastQuery: [URLQueryItem] = [
-            URLQueryItem(name: "lat", value: "51.507351"),
-            URLQueryItem(name: "lon", value: "-0.127758"),
-            URLQueryItem(name: "appid", value: "a013dc27d569ced7c7c5d28937e3b87e")
-        ]
-        
-        guard let request = EndPoint.getWeatherForecast(queryItems: forcastQuery).request else { return }
-        
-        URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
-            if let error {
-                #warning("handle error")
-                print("Error is \(error.localizedDescription)")
-            }
-            
-            if let data {
-                do {
-                    let forecast = try JSONDecoder().decode(Forecast.self, from: data)
-                    self?.forecast = forecast
-                    
-                    #warning("Remove")
-                    print(forecast)
-                    
-                } catch(let err) {
-                    #warning("handle error")
-                    print(err)
-                }
-            }
-        }.resume()
     }
 }
 

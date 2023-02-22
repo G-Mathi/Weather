@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - Forecast
 
-struct Forecast: Codable {
+public struct Forecast: Codable {
     var lat: Double?
     var lon: Double?
     var timezone: String?

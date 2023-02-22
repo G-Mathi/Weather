@@ -50,6 +50,10 @@ extension HourlyForecastView {
     
     func configure(with hourlyWeatherInfo: [HourlyForecast]) {
         vm.hourlyWeatherInfo = hourlyWeatherInfo
+        
+        DispatchQueue.main.async { [weak self] in
+            self?.hourlyForecastView.reloadData()
+        }
     }
 }
 
