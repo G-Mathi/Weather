@@ -28,11 +28,21 @@ extension Double {
 
 extension Double {
     
-    func getOnlyHour() -> String {
+    func getOnly24Time() -> String {
         let date = Date(timeIntervalSince1970: self)
         let dateFormatter = DateFormatter()
         dateFormatter.timeStyle = DateFormatter.Style.short
         dateFormatter.dateFormat = "HH:mm"
+        dateFormatter.timeZone = .current
+        
+        return dateFormatter.string(from: date)
+    }
+    
+    func getOnlyHour() -> String {
+        let date = Date(timeIntervalSince1970: self)
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeStyle = DateFormatter.Style.short
+        dateFormatter.dateFormat = "HH"
         dateFormatter.timeZone = .current
         
         return dateFormatter.string(from: date)
