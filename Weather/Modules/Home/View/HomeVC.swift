@@ -16,13 +16,13 @@ class HomeVC: UIViewController {
     // MARK: Components
     
     /// Current Temperature View
-    private var currentLocationView: CurrentLocationView = {
-        let stackView = CurrentLocationView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.layer.cornerRadius = 12
+    private var currentLocationView: CurrentLocationIntroView = {
+        let view = CurrentLocationIntroView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.cornerRadius = 12
         
-        stackView.backgroundColor = .orange
-        return stackView
+        view.backgroundColor = .orange
+        return view
     }()
     
     private var forecastTableView: UITableView = {
@@ -44,22 +44,7 @@ class HomeVC: UIViewController {
         super.viewDidLoad()
         
         setupUI()
-        configure()
-        
-//        vm.getCurrentLocation()
-        #warning("Find better solution")
-        let currentLocationRequest = vm.prepLocationForRequest(location: (51.507351, -0.127758))
-        vm.getWeatherForecast(at: currentLocationRequest) { [weak self] success in
-            if success {
-                DispatchQueue.main.async { [weak self] in
-                    self?.configure()
-                }
-            } else {
-
-            }
-        }
-        
-        // vm.checkIfLocationServicesEnabled()
+        getWeatherDataAndConfigure()
     }
     
     // MARK: - SetupUI
@@ -126,6 +111,24 @@ extension HomeVC {
     private func setForcastViewHeader() {
         forcastViewHeader.frame = CGRect(x: 0, y: 0, width: forecastTableView.frame.size.width, height: 200)
         forecastTableView.tableHeaderView = forcastViewHeader
+    }
+}
+
+// MARK: - API Request
+
+extension HomeVC {
+    
+    private func getWeatherDataAndConfigure() {
+        let currentLocationRequest = vm.prepLocationForRequest(location: (51.507351, -0.127758))
+        vm.getWeatherForecast(at: currentLocationRequest) { [weak self] success in
+            if success {
+                DispatchQueue.main.async { [weak self] in
+                    self?.configure()
+                }
+            } else {
+
+            }
+        }
     }
 }
 

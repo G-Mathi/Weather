@@ -92,7 +92,7 @@ extension ForecastVM {
 extension ForecastVM {
     
     func getLocationNameFor(lat: Double, lon: Double) -> String {
-        return String()
+        return "4th Cross Road"
     }
     
     private func getTime(for timeStamp: Double) -> String {

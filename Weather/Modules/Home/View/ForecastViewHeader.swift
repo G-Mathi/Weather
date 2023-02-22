@@ -19,16 +19,6 @@ class ForecastViewHeader: UIView {
         view.backgroundColor = .clear
         return view
     }()
-
-//    /// Current Temperature View
-//    private var currentTemperatureView: CurrentTemperatureView = {
-//        let stackView = CurrentTemperatureView()
-//        stackView.translatesAutoresizingMaskIntoConstraints = false
-//        stackView.layer.cornerRadius = 12
-//
-//        stackView.backgroundColor = .orange
-//        return stackView
-//    }()
     
     /// Hourly Temperature View
     private var hourlyForecastView: HourlyForecastView = {
@@ -75,13 +65,11 @@ extension ForecastViewHeader {
     
     private func addViews() {
         self.addSubview(container)
-//        container.addSubview(currentTemperatureView)
         container.addSubview(hourlyForecastView)
     }
     
     private func setUI() {
         setContainer()
-//        setCurrentTemperatureView()
         setHourlyForecastView()
     }
     
@@ -95,18 +83,8 @@ extension ForecastViewHeader {
         NSLayoutConstraint.activate(constraintsContainer)
     }
     
-//    private func setCurrentTemperatureView() {
-//        let constraintsCurrentTemperatureView = [
-//            currentTemperatureView.topAnchor.constraint(equalTo: container.topAnchor),
-//            currentTemperatureView.rightAnchor.constraint(equalTo: container.rightAnchor),
-//            currentTemperatureView.leftAnchor.constraint(equalTo: container.leftAnchor)
-//        ]
-//        NSLayoutConstraint.activate(constraintsCurrentTemperatureView)
-//    }
-    
     private func setHourlyForecastView() {
         let constraintsHourlyForecastView = [
-//            hourlyForecastView.topAnchor.constraint(equalTo: currentTemperatureView.bottomAnchor),
             hourlyForecastView.topAnchor.constraint(equalTo: container.topAnchor),
             
             hourlyForecastView.rightAnchor.constraint(equalTo: container.rightAnchor),

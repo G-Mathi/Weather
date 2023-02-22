@@ -11,6 +11,12 @@ struct CurrentLocationInfo {
     var location: String = ""
     var currentTemperatire: String = ""
     var minMaxTemperature: String = ""
+    
+    var time: String = ""
+    var weatherDescription: String = ""
+    var pressure: Int = 0
+    var humidity: Int = 0
+    var windSpeed: Double = 0.0
 }
 
 class CurrentLocationView: UIStackView {
