@@ -7,37 +7,6 @@
 
 import Foundation
 
-enum HTTP {
-    enum Scheme: String {
-        case http = "http"
-        case https = "https"
-    }
-    
-    enum Method: String {
-        case get = "GET"
-        case post = "POST"
-    }
-    
-    enum Header {
-        enum Field: String {
-            case contentType = "Content-Type"
-        }
-        
-        enum Value: String {
-            case json = "application/json"
-        }
-    }
-}
-
-extension URLRequest {
-    mutating func addValues() {
-        setValue(
-            HTTP.Header.Value.json.rawValue,
-            forHTTPHeaderField: HTTP.Header.Field.contentType.rawValue
-        )
-    }
-}
-
 enum EndPoint {
     case getWeatherForecast(path: String = "onecall", queryItems: [URLQueryItem]? = nil)
     
