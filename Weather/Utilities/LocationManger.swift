@@ -8,30 +8,21 @@
 import Foundation
 import CoreLocation
 
-class LocationManager: NSObject {
-    
-    public static let shared = LocationManager()
+class LocationProvider: NSObject {
     
     var locationManager: CLLocationManager?
-    
-    private override init() {}
 }
 
-// MARK: - CLLocation Manager
+// MARK: - Location Enabled/Not
 
-extension LocationManager {
+extension LocationProvider {
     
     func checkIfLocationServicesEnabled() {
-        
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager = CLLocationManager()
-            locationManager?.desiredAccuracy = kCLLocationAccuracyBest
-            locationManager?.delegate = self
-            locationManager?.startUpdatingLocation()
-        } else {
-            
-            // Show alert
-        }
+        locationManager = CLLocationManager()
+        locationManager?.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager?.delegate = self
+        locationManager?.requestWhenInUseAuthorization()
+        locationManager?.startUpdatingLocation()
     }
     
     private func checkLocationAuthorization() {
@@ -41,19 +32,15 @@ extension LocationManager {
         case .notDetermined:
             locationManager.requestWhenInUseAuthorization()
         case .restricted:
-            
             // Show alert for restricted. eg => Parental control
             break
         case .denied:
-            
             // Show alert to allow location again
             break
         case .authorizedAlways, .authorizedWhenInUse:
-            guard let location = locationManager.location else { return }
-            print("Coordinates: \(location.coordinate)")
-            break
+            locationManager.requestLocation()
+//            locationManager.startUpdatingLocation()
         @unknown default:
-            
             // Show Alert for unknown
             break
         }
@@ -62,27 +49,24 @@ extension LocationManager {
 
 // MARK: - CLLocation Manager Delegate
 
-extension LocationManager: CLLocationManagerDelegate {
+extension LocationProvider: CLLocationManagerDelegate {
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         checkLocationAuthorization()
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
         
-        print(locValue.latitude)
-        print(locValue.longitude)
-        
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("LocationManager didFailWithError \(error.localizedDescription)")
-        if let error = error as? CLError, error.code == .denied {
-            // Location updates are not authorized.
-            // To prevent forever looping of `didFailWithError` callback
-            locationManager?.stopMonitoringSignificantLocationChanges()
-            return
+        if let location = locations.first {
+            manager.stopUpdatingLocation()
+            
+            print("Location: \(location.coordinate.latitude), \(location.coordinate.longitude) \n\n")
         }
+        
+//        guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
+//
+//        print(locValue.latitude)
+//        print(locValue.longitude)
+        
     }
 }

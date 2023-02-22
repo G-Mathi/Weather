@@ -53,7 +53,19 @@ class ForecastVM: NSObject {
 extension ForecastVM {
     
     func getCurrentLocation() {
-        LocationManager.shared
+        let locationProvider = LocationProvider()
+        
+//        DispatchQueue.global(qos: .userInteractive).async {
+            locationProvider.checkIfLocationServicesEnabled()
+//        }
+            
+        
+        
+//        if locationProvider.checkIfLocationServicesEnabled() {
+//            locationProvider.instantiateLocationManager()
+//        } else {
+//            // show alert
+//        }
     }
 }
 

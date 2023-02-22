@@ -46,17 +46,18 @@ class HomeVC: UIViewController {
         setupUI()
         configure()
         
-//        #warning("Find better solution")
-//        let currentLocationRequest = vm.prepLocationForRequest(location: (51.507351, -0.127758))
-//        vm.getWeatherForecast(at: currentLocationRequest) { [weak self] success in
-//            if success {
-//                DispatchQueue.main.async { [weak self] in
-//                    self?.configure()
-//                }
-//            } else {
-//
-//            }
-//        }
+//        vm.getCurrentLocation()
+        #warning("Find better solution")
+        let currentLocationRequest = vm.prepLocationForRequest(location: (51.507351, -0.127758))
+        vm.getWeatherForecast(at: currentLocationRequest) { [weak self] success in
+            if success {
+                DispatchQueue.main.async { [weak self] in
+                    self?.configure()
+                }
+            } else {
+
+            }
+        }
         
         // vm.checkIfLocationServicesEnabled()
     }
