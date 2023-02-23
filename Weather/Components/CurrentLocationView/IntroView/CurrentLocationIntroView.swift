@@ -130,6 +130,7 @@ extension CurrentLocationIntroView {
         labelTime = UILabel()
         labelTime.translatesAutoresizingMaskIntoConstraints = false
         labelTime.numberOfLines = 1
+        labelTime.textColor = .Label.Default.value
         labelTime.font = .systemFont(ofSize: 14)
         
         self.addSubview(labelTime)
@@ -170,16 +171,19 @@ extension CurrentLocationIntroView {
         // Current Temperature
         lblCurrentTemperature = UILabel()
         lblCurrentTemperature.numberOfLines = 1
+        lblCurrentTemperature.textColor = .Label.Default.value
         lblCurrentTemperature.font = .systemFont(ofSize: 54, weight: .regular)
         
         // Temperature Description
         lblTemperatureDescription = UILabel()
         lblTemperatureDescription.numberOfLines = 1
+        lblTemperatureDescription.textColor = .Label.Default.value
         lblTemperatureDescription.font = .systemFont(ofSize: 18)
         
         // Minimum & Maximum Temperatures
         lblMinMaxTemperature = UILabel()
         lblMinMaxTemperature.numberOfLines = 1
+        lblMinMaxTemperature.textColor = .Label.Default.value
         lblMinMaxTemperature.font = .systemFont(ofSize: 14)
     }
     

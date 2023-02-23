@@ -21,9 +21,8 @@ class HomeVC: UIViewController {
         let view = CurrentLocationIntroView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 12
-        
         // RGB = 22, 40, 63
-        view.backgroundColor = UIColor(red: 0.09, green: 0.16, blue: 0.25, alpha: 1.00)
+        view.backgroundColor = .Background.DarkBlue.value
         return view
     }()
     
@@ -42,21 +41,33 @@ class HomeVC: UIViewController {
         return header
     }()
     
+    private var bottomView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.clipsToBounds = true
+        view.layer.masksToBounds = true
+        view.backgroundColor = .Background.DarkBlue.value
+        return view
+    }()
+
+    
     // MARK: - View LifeCycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        setupUI()
         setLocationManger()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        // RGB = 35, 59, 88
+        view.backgroundColor = .Background.MidBlue.value
     }
     
     // MARK: - SetupUI
     
     private func setupUI() {
-        // RGB = 35, 59, 88
-        view.backgroundColor = UIColor(red: 0.14, green: 0.23, blue: 0.35, alpha: 1.00)
-        
+        setBottomView()
         setCurrentTemperatureView()
         setDailyForecastView()
         setForcastViewHeader()
@@ -68,10 +79,11 @@ class HomeVC: UIViewController {
 extension HomeVC {
     
     private func configure() {
+        setupUI()
         currentLocationView.configure(with: vm.getCurrentLocationInfo())
         forcastViewHeader.configure(with: vm)
         
-        // Need configuration method for this
+        // Configuration to get 7 days forecast to uodate the view
         vm.dailyWeatherInfo = vm.getWeatherInfoFor7Days()
         self.forecastTableView.reloadData()
     }
@@ -154,6 +166,22 @@ extension HomeVC {
     private func setForcastViewHeader() {
         forcastViewHeader.frame = CGRect(x: 0, y: 0, width: forecastTableView.frame.size.width, height: 100)
         forecastTableView.tableHeaderView = forcastViewHeader
+    }
+}
+
+// MARK: - Set Bottom View
+
+extension HomeVC {
+    
+    private func setBottomView() {
+        view.addSubview(bottomView)
+        let constraintsBottomView = [
+            bottomView.heightAnchor.constraint(equalToConstant: view.frame.height / 3),
+            bottomView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            bottomView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            bottomView.rightAnchor.constraint(equalTo: view.rightAnchor)
+        ]
+        NSLayoutConstraint.activate(constraintsBottomView)
     }
 }
 

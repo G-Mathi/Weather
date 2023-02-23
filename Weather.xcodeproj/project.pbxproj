@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3B43DCAB29A825F700B43AD3 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B43DCAA29A825F700B43AD3 /* Colors.xcassets */; };
+		3B43DCAD29A828E300B43AD3 /* ColorTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B43DCAC29A828E300B43AD3 /* ColorTheme.swift */; };
 		3B44DBC829A7975B0012AB40 /* AlertProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B44DBC729A7975B0012AB40 /* AlertProvider.swift */; };
 		3B44DBCB29A79DDC0012AB40 /* CommonStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B44DBCA29A79DDC0012AB40 /* CommonStrings.swift */; };
 		3B44DBCD29A7A9330012AB40 /* GeoCoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B44DBCC29A7A9320012AB40 /* GeoCoding.swift */; };
@@ -56,6 +58,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3B43DCAA29A825F700B43AD3 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		3B43DCAC29A828E300B43AD3 /* ColorTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorTheme.swift; sourceTree = "<group>"; };
 		3B44DBC729A7975B0012AB40 /* AlertProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertProvider.swift; sourceTree = "<group>"; };
 		3B44DBCA29A79DDC0012AB40 /* CommonStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonStrings.swift; sourceTree = "<group>"; };
 		3B44DBCC29A7A9320012AB40 /* GeoCoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoCoding.swift; sourceTree = "<group>"; };
@@ -177,6 +181,7 @@
 			isa = PBXGroup;
 			children = (
 				5FACF59B29A0BC1F00F068ED /* Assets.xcassets */,
+				3B43DCAA29A825F700B43AD3 /* Colors.xcassets */,
 			);
 			path = Assets;
 			sourceTree = "<group>";
@@ -195,6 +200,7 @@
 				5F4C936D29A308F6001AACCC /* APIEnvironment.swift */,
 				5FAEDECB29A4AF5B00BC632D /* LocationManger.swift */,
 				3B44DBC729A7975B0012AB40 /* AlertProvider.swift */,
+				3B43DCAC29A828E300B43AD3 /* ColorTheme.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -466,6 +472,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3B44DBD029A803740012AB40 /* Keys.plist in Resources */,
+				3B43DCAB29A825F700B43AD3 /* Colors.xcassets in Resources */,
 				5FACF59F29A0BC1F00F068ED /* LaunchScreen.storyboard in Resources */,
 				5FACF59C29A0BC1F00F068ED /* Assets.xcassets in Resources */,
 			);
@@ -497,6 +504,7 @@
 				5F2B946E29A3DD5B00EFBF56 /* HomeNC.swift in Sources */,
 				5FACF5CB29A0BE8A00F068ED /* HomeVC.swift in Sources */,
 				5FDB7AE529A6CC7300B48AEF /* ImageLabelView.swift in Sources */,
+				3B43DCAD29A828E300B43AD3 /* ColorTheme.swift in Sources */,
 				5F4C936C29A26153001AACCC /* HourlyForecastCVCell.swift in Sources */,
 				5FC30F8129A696C300EC1617 /* CurrentLocationIntroView.swift in Sources */,
 				5FAEDECC29A4AF5B00BC632D /* LocationManger.swift in Sources */,

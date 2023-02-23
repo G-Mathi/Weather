@@ -45,6 +45,7 @@ class DailyForecastTVCell: UITableViewCell {
     private var lblDay: UILabel = {
         let label = UILabel()
         label.numberOfLines = 1
+        label.textColor = .Label.Default.value
         label.font = .systemFont(ofSize: 16)
         return label
     }()
@@ -61,6 +62,7 @@ class DailyForecastTVCell: UITableViewCell {
     private var lblMinMaxTemperature: UILabel = {
         let label = UILabel()
         label.numberOfLines = 1
+        label.textColor = .Label.Default.value
         label.font = .systemFont(ofSize: 16)
         label.textAlignment = .center
         return label
@@ -88,7 +90,7 @@ class DailyForecastTVCell: UITableViewCell {
         setContainer()
         setcontainerDayComponents()
         
-        contentView.backgroundColor = UIColor(red: 0.09, green: 0.16, blue: 0.25, alpha: 1.00)
+        contentView.backgroundColor = .Background.DarkBlue.value
     }
     
     override func prepareForReuse() {

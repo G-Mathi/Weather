@@ -27,6 +27,7 @@ class CurrentLocationView: UIStackView {
         let label = UILabel()
         label.numberOfLines = 1
         label.font = .systemFont(ofSize: 24, weight: .regular)
+        label.textColor = .Label.Default.value
         return label
     }()
     
@@ -34,6 +35,7 @@ class CurrentLocationView: UIStackView {
         let label = UILabel()
         label.numberOfLines = 1
         label.font = .systemFont(ofSize: 42, weight: .regular)
+        label.textColor = .Label.Default.value
         return label
     }()
     
@@ -41,6 +43,7 @@ class CurrentLocationView: UIStackView {
         let label = UILabel()
         label.numberOfLines = 1
         label.font = .systemFont(ofSize: 16, weight: .regular)
+        label.textColor = .Label.Default.value
         return label
     }()
     

@@ -27,6 +27,7 @@ class ImageLabelView: UIStackView {
     private let label: UILabel = {
         let label = UILabel()
         label.numberOfLines = 1
+        label.textColor = .Label.Default.value
         label.font = .systemFont(ofSize: 14)
         return label
     }()

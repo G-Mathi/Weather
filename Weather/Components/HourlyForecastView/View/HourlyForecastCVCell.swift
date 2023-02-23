@@ -30,7 +30,7 @@ class HourlyForecastCVCell: UICollectionViewCell {
         let label = UILabel()
         label.numberOfLines = 1
         label.font = .systemFont(ofSize: 13)
-        label.textColor = .lightGray
+        label.textColor = .Label.TimeLabel.value
         return label
     }()
     
@@ -47,6 +47,7 @@ class HourlyForecastCVCell: UICollectionViewCell {
         let label = UILabel()
         label.numberOfLines = 1
         label.font = .systemFont(ofSize: 15, weight: .semibold)
+        label.textColor = .Label.Default.value
         return label
     }()
     
