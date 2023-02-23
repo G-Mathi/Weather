@@ -6,12 +6,14 @@
 //
 
 import UIKit
+import CoreLocation
 
 class HomeVC: UIViewController {
-
+    
     // MARK: - Variables
     
     private var vm = ForecastVM()
+    private var locationManager: CLLocationManager?
     
     // MARK: Components
     
@@ -45,8 +47,10 @@ class HomeVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupUI()
-        getWeatherDataAndConfigure()
+        setLocationManger()
+        
+        //        setupUI()
+        //        getWeatherDataAndConfigure()
     }
     
     // MARK: - SetupUI
@@ -61,17 +65,32 @@ class HomeVC: UIViewController {
         setDailyForecastView()
         setForcastViewHeader()
     }
-    
-    // MARK: - Configure
+}
+
+// MARK: - Configure
+
+extension HomeVC {
     
     private func configure() {
-//        currentLocationView.configure(with: vm.getCurrentLocationInfo())
+        //        currentLocationView.configure(with: vm.getCurrentLocationInfo())
         currentLocationView.configure(with: CurrentLocationInfo())
         forcastViewHeader.configure(with: vm)
         
         // Need configuration method for this
         vm.dailyWeatherInfo = vm.getWeatherInfoFor7Days()
         forecastTableView.reloadData()
+    }
+}
+
+// MARK: - Set LocationManger
+
+extension HomeVC {
+    
+    private func setLocationManger() {
+        locationManager = CLLocationManager()
+        locationManager?.delegate = self
+        locationManager?.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager?.requestWhenInUseAuthorization()
     }
 }
 
@@ -133,7 +152,7 @@ extension HomeVC {
                     self?.configure()
                 }
             } else {
-
+                
             }
         }
     }
@@ -165,5 +184,31 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
+    }
+}
+
+// MARK: - CLLocationManager Delegate
+
+extension HomeVC: CLLocationManagerDelegate {
+    
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        
+        switch manager.authorizationStatus {
+        case .notDetermined:
+            locationManager?.requestWhenInUseAuthorization()
+        case .restricted:
+            AlertProvider.showAlert(target: self, title: "", message: "message", action: AlertAction(title: "Dismiss"))
+        case .denied:
+            AlertProvider.showAlertWithActions(target: self, title: "ds", message: "sfsf", actions: [AlertAction(title: "Cancel"), AlertAction(title: "Go")]) { action in
+                if action.title == "Go" {
+                    UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:], completionHandler: nil)
+                }
+            }
+        case .authorizedAlways, .authorizedWhenInUse:
+            guard let location = manager.location else { return }
+            print(location.coordinate)
+        @unknown default:
+            break
+        }
     }
 }
