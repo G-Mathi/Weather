@@ -61,7 +61,18 @@ class CurrentLocationIntroView: UIView {
 extension CurrentLocationIntroView {
     
     func configure(with model: CurrentLocationInfo) {
-        locationStack.configure(with: ImageLabel(icon: "location", title: model.location))
+        GeoCode.reverseGeocoding(
+            latitude: model.location.lat,
+            longitude: model.location.lon) { [weak self] result in
+                
+            switch result {
+            case .success(let locationName):
+                self?.locationStack.configure(with: ImageLabel(icon: "location", title: locationName))
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+        
         labelTime.text = model.time
         
         lblCurrentTemperature.text = "\(model.currentTemperatire)"

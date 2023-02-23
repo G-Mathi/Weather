@@ -36,7 +36,7 @@ class DailyForecastTVCell: UITableViewCell {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.alignment = .fill
-        stackView.distribution = .fillProportionally
+        stackView.distribution = .fill
         stackView.spacing = 30
         return stackView
     }()
@@ -153,10 +153,6 @@ extension DailyForecastTVCell {
     
     private func setcontainerDayComponents() {
         lblDay.widthAnchor.constraint(equalTo: container.widthAnchor, multiplier: 0.25).isActive = true
-        
         imageViewWeatherIcon.widthAnchor.constraint(equalTo: imageViewWeatherIcon.heightAnchor).isActive = true
-        
-//        imageViewWeatherIcon.heightAnchor.constraint(equalTo: container.heightAnchor, multiplier: 0.8).isActive = true
-//        imageViewWeatherIcon.widthAnchor.constraint(equalTo: imageViewWeatherIcon.heightAnchor, multiplier: 1).isActive = true
     }
 }

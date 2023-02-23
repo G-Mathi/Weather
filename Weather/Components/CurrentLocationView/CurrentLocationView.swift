@@ -8,7 +8,7 @@
 import UIKit
 
 struct CurrentLocationInfo {
-    var location: String = "Mamangam"
+    var location: (lat: Double, lon: Double) = (12,12)
     var currentTemperatire: String = 296.convertTemperature(from: .kelvin, to: .celsius)
     var minMaxTemperature: String = "H: 34  L: 28"
     
@@ -68,9 +68,20 @@ class CurrentLocationView: UIStackView {
 extension CurrentLocationView {
     
     func configure(with model: CurrentLocationInfo) {
-        lblLocation.text = model.location
         lblCurrentTemp.text = model.currentTemperatire
         lblMaxMinTemp.text = model.minMaxTemperature
+        
+        GeoCode.reverseGeocoding(
+            latitude: model.location.lat,
+            longitude: model.location.lon) { [weak self] result in
+                
+            switch result {
+            case .success(let locationName):
+                self?.lblLocation.text = locationName
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
 }
 

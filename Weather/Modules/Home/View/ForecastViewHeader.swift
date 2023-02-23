@@ -77,8 +77,8 @@ extension ForecastViewHeader {
         let constraintsContainer = [
             container.topAnchor.constraint(equalTo: self.topAnchor),
             container.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            container.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -16),
-            container.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 16)
+            container.rightAnchor.constraint(equalTo: self.rightAnchor, constant: 0),
+            container.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 0)
         ]
         NSLayoutConstraint.activate(constraintsContainer)
     }
@@ -86,7 +86,6 @@ extension ForecastViewHeader {
     private func setHourlyForecastView() {
         let constraintsHourlyForecastView = [
             hourlyForecastView.topAnchor.constraint(equalTo: container.topAnchor),
-            
             hourlyForecastView.rightAnchor.constraint(equalTo: container.rightAnchor),
             hourlyForecastView.leftAnchor.constraint(equalTo: container.leftAnchor),
             hourlyForecastView.bottomAnchor.constraint(equalTo: container.bottomAnchor)

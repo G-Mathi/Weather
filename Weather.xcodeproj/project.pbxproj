@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		3B44DBC829A7975B0012AB40 /* AlertProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B44DBC729A7975B0012AB40 /* AlertProvider.swift */; };
+		3B44DBCB29A79DDC0012AB40 /* CommonStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B44DBCA29A79DDC0012AB40 /* CommonStrings.swift */; };
+		3B44DBCD29A7A9330012AB40 /* GeoCoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B44DBCC29A7A9320012AB40 /* GeoCoding.swift */; };
 		5F2B946B29A3AA4700EFBF56 /* ForecastViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2B946A29A3AA4700EFBF56 /* ForecastViewHeader.swift */; };
 		5F2B946E29A3DD5B00EFBF56 /* HomeNC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2B946D29A3DD5B00EFBF56 /* HomeNC.swift */; };
 		5F4C936A29A260AB001AACCC /* HourlyForecastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4C936929A260AB001AACCC /* HourlyForecastView.swift */; };
@@ -53,6 +55,8 @@
 
 /* Begin PBXFileReference section */
 		3B44DBC729A7975B0012AB40 /* AlertProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertProvider.swift; sourceTree = "<group>"; };
+		3B44DBCA29A79DDC0012AB40 /* CommonStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonStrings.swift; sourceTree = "<group>"; };
+		3B44DBCC29A7A9320012AB40 /* GeoCoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoCoding.swift; sourceTree = "<group>"; };
 		5F2B946A29A3AA4700EFBF56 /* ForecastViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastViewHeader.swift; sourceTree = "<group>"; };
 		5F2B946D29A3DD5B00EFBF56 /* HomeNC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNC.swift; sourceTree = "<group>"; };
 		5F4C936929A260AB001AACCC /* HourlyForecastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyForecastView.swift; sourceTree = "<group>"; };
@@ -108,6 +112,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3B44DBC929A79DC10012AB40 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				3B44DBCA29A79DDC0012AB40 /* CommonStrings.swift */,
+				3B44DBCC29A7A9320012AB40 /* GeoCoding.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		5F2B946C29A3DD2500EFBF56 /* CommonViews */ = {
 			isa = PBXGroup;
 			children = (
@@ -146,6 +159,7 @@
 				5F2B946C29A3DD2500EFBF56 /* CommonViews */,
 				5FACF5C429A0BD2200F068ED /* Utilities */,
 				5FACF5C329A0BD0A00F068ED /* Extenstions */,
+				3B44DBC929A79DC10012AB40 /* Helpers */,
 				5FACF5C229A0BCD200F068ED /* Assets */,
 				5FACF59D29A0BC1F00F068ED /* LaunchScreen.storyboard */,
 				5FACF5A029A0BC1F00F068ED /* Info.plist */,
@@ -184,7 +198,7 @@
 			children = (
 				5FC77B5329A5DE6A004477CD /* APIs */,
 				5FC77B5529A5DE77004477CD /* Endpoints */,
-				5FC77B5429A5DE74004477CD /* Helper */,
+				5FC77B5429A5DE74004477CD /* Helpers */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -318,12 +332,12 @@
 			path = APIs;
 			sourceTree = "<group>";
 		};
-		5FC77B5429A5DE74004477CD /* Helper */ = {
+		5FC77B5429A5DE74004477CD /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
 				5FC77B5129A5DB20004477CD /* Helper.swift */,
 			);
-			path = Helper;
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		5FC77B5529A5DE77004477CD /* Endpoints */ = {
@@ -471,6 +485,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5F4C936A29A260AB001AACCC /* HourlyForecastView.swift in Sources */,
+				3B44DBCD29A7A9330012AB40 /* GeoCoding.swift in Sources */,
 				5F2B946E29A3DD5B00EFBF56 /* HomeNC.swift in Sources */,
 				5FACF5CB29A0BE8A00F068ED /* HomeVC.swift in Sources */,
 				5FDB7AE529A6CC7300B48AEF /* ImageLabelView.swift in Sources */,
@@ -479,6 +494,7 @@
 				5FAEDECC29A4AF5B00BC632D /* LocationManger.swift in Sources */,
 				5F619B4329A22F2C002DB2EC /* EndPoints.swift in Sources */,
 				5FC77B5229A5DB20004477CD /* Helper.swift in Sources */,
+				3B44DBCB29A79DDC0012AB40 /* CommonStrings.swift in Sources */,
 				5FAC762429A2513F0084392A /* CommonExtentions.swift in Sources */,
 				5FC77B5729A5E858004477CD /* WeatherRequest.swift in Sources */,
 				5F4C936E29A308F6001AACCC /* APIEnvironment.swift in Sources */,
@@ -674,9 +690,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mathi.weather;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -704,9 +723,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mathi.weather;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

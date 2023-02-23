@@ -31,11 +31,16 @@ struct WeatherInfo: Codable {
     var dt: Double?
     var temp: Double?
     var feelsLike: Double?
+    var pressure: Int?
+    var humidity: Int?
+    var windSpeed: Double?
     var weather: [WeatherDescription]?
     
     enum CodingKeys: String, CodingKey {
         case dt, temp
         case feelsLike = "feels_like"
+        case pressure, humidity
+        case windSpeed = "wind_speed"
         case weather
     }
 }

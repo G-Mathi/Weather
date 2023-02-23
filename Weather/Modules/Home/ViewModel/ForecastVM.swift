@@ -7,6 +7,8 @@
 
 import Foundation
 
+// London - (51.507351, -0.127758)
+
 class ForecastVM: NSObject {
     
     #warning("Need to relocate where good")
@@ -53,19 +55,7 @@ class ForecastVM: NSObject {
 extension ForecastVM {
     
     func getCurrentLocation() {
-        let locationProvider = LocationProvider()
-        
-//        DispatchQueue.global(qos: .userInteractive).async {
-            locationProvider.checkIfLocationServicesEnabled()
-//        }
-            
-        
-        
-//        if locationProvider.checkIfLocationServicesEnabled() {
-//            locationProvider.instantiateLocationManager()
-//        } else {
-//            // show alert
-//        }
+ 
     }
 }
 
@@ -73,15 +63,27 @@ extension ForecastVM {
 
 extension ForecastVM {
      
-    func getWeatherForecast(at request: WeatherRequest, completion: @escaping (Bool) -> Void) {
+    func getWeatherForecast(at request: WeatherRequest, completion: @escaping (Bool, String?) -> Void) {
         request.getWeatherData { [weak self] result in
             switch result {
             case .success(let forecast):
                 self?.forecast = forecast
-                completion(true)
+                completion(true, nil)
             case .failure(let error):
-                print(error)
-                completion(false)
+                let message: String?
+                switch error {
+                case .invalidRequest:
+                    message = ""
+                case .clientError:
+                    message = ""
+                case .serverError:
+                    message = ""
+                case .noData:
+                    message = ""
+                case .dataDecodingError:
+                    message = ""
+                }
+                completion(false, message)
             }
         }
     }
@@ -90,10 +92,6 @@ extension ForecastVM {
 // MARK: - Display Format Helper
 
 extension ForecastVM {
-    
-    func getLocationNameFor(lat: Double, lon: Double) -> String {
-        return "4th Cross Road"
-    }
     
     private func getTime(for timeStamp: Double) -> String {
         return timeStamp.getOnlyHour()
@@ -126,6 +124,11 @@ extension ForecastVM {
               let lat = forecast.lat,
               let lon = forecast.lon,
               let currentTemperature = forecast.current?.temp,
+              let time = forecast.current?.dt,
+              let weatherDescription = forecast.current?.weather?[0].description,
+              let pressure = forecast.current?.pressure,
+              let humidity = forecast.current?.humidity,
+              let windSpeed = forecast.current?.windSpeed,
               let currentDay = forecast.daily?.first,
               let minTemp = currentDay.temp?.min,
               let maxTemp = currentDay.temp?.max
@@ -134,9 +137,14 @@ extension ForecastVM {
         }
         
         let currentLocationInfo = CurrentLocationInfo(
-            location: getLocationNameFor(lat: lat, lon: lon),
+            location: (lat, lon),
             currentTemperatire: getTemperature(for: currentTemperature),
-            minMaxTemperature: getMinMaxCurrentDay(min: minTemp, max: maxTemp)
+            minMaxTemperature: getMinMaxCurrentDay(min: minTemp, max: maxTemp),
+            time: time.getOnly12Time(),
+            weatherDescription: weatherDescription,
+            pressure: pressure,
+            humidity: humidity,
+            windSpeed: windSpeed
         )
         return currentLocationInfo
     }
@@ -149,9 +157,13 @@ extension ForecastVM {
     func getWeatherInfoFor24Hours() -> [HourlyForecast] {
         var weatherInfo24Hour: [HourlyForecast] = []
         
-        getHourlyForecastInfo()?.forEach({ weatherInfoHour in
-            weatherInfo24Hour.append(getWeatherInfoPerHour(for: weatherInfoHour))
-        })
+        for i in 0..<24 {
+            weatherInfo24Hour.append(getWeatherInfoPerHour(for: getHourlyForecastInfo()?[i]))
+        }
+        
+//        getHourlyForecastInfo()?.forEach({ weatherInfoHour in
+//            weatherInfo24Hour.append(getWeatherInfoPerHour(for: weatherInfoHour))
+//        })
         
         return weatherInfo24Hour
     }

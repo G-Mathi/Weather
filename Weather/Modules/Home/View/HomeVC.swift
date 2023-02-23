@@ -8,6 +8,8 @@
 import UIKit
 import CoreLocation
 
+// London - (51.507351, -0.127758)
+
 class HomeVC: UIViewController {
     
     // MARK: - Variables
@@ -30,6 +32,7 @@ class HomeVC: UIViewController {
     
     private var forecastTableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
+        tableView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false
@@ -47,17 +50,13 @@ class HomeVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupUI()
         setLocationManger()
-        
-        //        setupUI()
-        //        getWeatherDataAndConfigure()
     }
     
     // MARK: - SetupUI
     
     private func setupUI() {
-        self.title = "Home"
-        
         // RGB = 35, 59, 88
         view.backgroundColor = UIColor(red: 0.14, green: 0.23, blue: 0.35, alpha: 1.00)
         
@@ -72,13 +71,36 @@ class HomeVC: UIViewController {
 extension HomeVC {
     
     private func configure() {
-        //        currentLocationView.configure(with: vm.getCurrentLocationInfo())
-        currentLocationView.configure(with: CurrentLocationInfo())
+        currentLocationView.configure(with: vm.getCurrentLocationInfo())
         forcastViewHeader.configure(with: vm)
         
         // Need configuration method for this
         vm.dailyWeatherInfo = vm.getWeatherInfoFor7Days()
-        forecastTableView.reloadData()
+        self.forecastTableView.reloadData()
+    }
+}
+
+// MARK: - API Request
+
+extension HomeVC {
+    
+    private func getWeatherDataAndConfigure(for location: (lat: Double, lon: Double)) {
+        
+        let currentLocationRequest = vm.prepLocationForRequest(location: location)
+        
+        vm.getWeatherForecast(at: currentLocationRequest) { [unowned self] success, message  in
+            if success {
+                DispatchQueue.main.async { [unowned self] in
+                    self.configure()
+                }
+            } else {
+                if let message {
+                    DispatchQueue.main.async { [unowned self] in
+                        AlertProvider.showAlert(target: self, title: AlertStrings.Alert.rawValue, message: message, action: AlertAction(title: AlertStrings.Dismiss.rawValue))
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -140,24 +162,6 @@ extension HomeVC {
     }
 }
 
-// MARK: - API Request
-
-extension HomeVC {
-    
-    private func getWeatherDataAndConfigure() {
-        let currentLocationRequest = vm.prepLocationForRequest(location: (51.507351, -0.127758))
-        vm.getWeatherForecast(at: currentLocationRequest) { [weak self] success in
-            if success {
-                DispatchQueue.main.async { [weak self] in
-                    self?.configure()
-                }
-            } else {
-                
-            }
-        }
-    }
-}
-
 // MARK: - TableView Delegate
 
 extension HomeVC: UITableViewDelegate, UITableViewDataSource {
@@ -197,16 +201,21 @@ extension HomeVC: CLLocationManagerDelegate {
         case .notDetermined:
             locationManager?.requestWhenInUseAuthorization()
         case .restricted:
-            AlertProvider.showAlert(target: self, title: "", message: "message", action: AlertAction(title: "Dismiss"))
+            AlertProvider.showAlert(target: self, title: AlertStrings.Sorry.rawValue, message: AlertStrings.LocationRestricted.rawValue, action: AlertAction(title: AlertStrings.Dismiss.rawValue))
         case .denied:
-            AlertProvider.showAlertWithActions(target: self, title: "ds", message: "sfsf", actions: [AlertAction(title: "Cancel"), AlertAction(title: "Go")]) { action in
-                if action.title == "Go" {
+            AlertProvider.showAlertWithActions(target: self, title: AlertStrings.LocationDeniedTitle.rawValue, message: AlertStrings.LocationDenied.rawValue, actions: [AlertAction(title: AlertStrings.Cancel.rawValue), AlertAction(title: AlertStrings.Confirm.rawValue)]) { [weak self] action in
+                if action.title == AlertStrings.Confirm.rawValue {
                     UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:], completionHandler: nil)
+                } else {
+                    // Show alternative location
+                    // London - (51.507351, -0.127758)
+                    let london: (lat: Double, lon: Double) = (51.507351, -0.127758)
+                    self?.getWeatherDataAndConfigure(for: (london.lon, lon: london.lat))
                 }
             }
         case .authorizedAlways, .authorizedWhenInUse:
             guard let location = manager.location else { return }
-            print(location.coordinate)
+            getWeatherDataAndConfigure(for: (location.coordinate.latitude, location.coordinate.longitude))
         @unknown default:
             break
         }
