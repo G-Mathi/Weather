@@ -119,7 +119,8 @@ extension DailyForecastTVCell {
         KingfisherManager.shared.retrieveImage(with: resource, options: nil, progressBlock: nil) { result in
             switch result {
             case .success(let value):
-                DispatchQueue.main.async { [weak self] in
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
+//                DispatchQueue.main.async { [weak self] in
                     self?.imageViewWeatherIcon.image = value.image
                 }
             case .failure(_):

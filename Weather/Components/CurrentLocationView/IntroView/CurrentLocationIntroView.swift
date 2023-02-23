@@ -75,7 +75,7 @@ extension CurrentLocationIntroView {
         
         labelTime.text = model.time
         
-        lblCurrentTemperature.text = "\(model.currentTemperatire)"
+        lblCurrentTemperature.text = "\(model.currentTemperatire)C"
         lblTemperatureDescription.text = model.weatherDescription
         lblMinMaxTemperature.text = model.minMaxTemperature
     

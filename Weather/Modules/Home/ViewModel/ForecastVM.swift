@@ -9,10 +9,20 @@ import Foundation
 
 class ForecastVM: NSObject {
     
-    #warning("Need to relocate where good")
-    // MARK: - Weather Data for 7 Days
+    // MARK: - Variables
     
+    var forecast: Forecast?
+    
+    // Weather Data for 7 Days
     var dailyWeatherInfo: [DailyForecast] = []
+
+    func getHourlyForecastInfo() -> [WeatherInfo]? {
+        return forecast?.hourly
+    }
+    
+    func getDailyForecastInfo() -> [WeatherInfoDaily]? {
+        return forecast?.daily
+    }
     
     func getWeatherInfo(at index: Int) -> DailyForecast {
         return dailyWeatherInfo[index]
@@ -21,14 +31,14 @@ class ForecastVM: NSObject {
     func getWeatherDataCount() -> Int {
         return dailyWeatherInfo.count
     }
-    
-    // MARK: - Variables
-    
-    var forecast: Forecast?
+}
+
+// MARK: - GET WeatherData
+
+extension ForecastVM {
     
     func prepLocationForRequest(location: (lat: Double, lon: Double)) -> WeatherRequest {
         let keys = Keys(resourceName: "Keys")
-        
         let weatherRequest = WeatherRequest(
             lat: location.lat,
             lon: location.lon,
@@ -36,32 +46,6 @@ class ForecastVM: NSObject {
         )
         return weatherRequest
     }
-    
-    func getCurrentTemperatureInfo() -> WeatherInfo? {
-        return forecast?.current
-    }
-    
-    func getHourlyForecastInfo() -> [WeatherInfo]? {
-        return forecast?.hourly
-    }
-    
-    func getDailyForecastInfo() -> [WeatherInfoDaily]? {
-        return forecast?.daily
-    }
-}
-
-// MARK: - Get Current Location
-
-extension ForecastVM {
-    
-    func getCurrentLocation() {
- 
-    }
-}
-
-// MARK: - Requests
-
-extension ForecastVM {
      
     func getWeatherForecast(at request: WeatherRequest, completion: @escaping (Bool, String?) -> Void) {
         request.getWeatherData { [weak self] result in
@@ -73,15 +57,9 @@ extension ForecastVM {
                 let message: String?
                 switch error {
                 case .invalidRequest:
-                    message = ""
-                case .clientError:
-                    message = ""
-                case .serverError:
-                    message = ""
-                case .noData:
-                    message = ""
-                case .dataDecodingError:
-                    message = ""
+                    message = "Please update the app to continue..."
+                case .clientError, .serverError, .noData, .dataDecodingError:
+                    message = "Please try again later..."
                 }
                 completion(false, message)
             }
@@ -110,7 +88,7 @@ extension ForecastVM {
     }
     
     private func getMinMaxCurrentDay(min: Double, max: Double) -> String {
-        return "Min: \(getTemperature(for: min)) Max: \(getTemperature(for: max))"
+        return "H: \(getTemperature(for: max))   L: \(getTemperature(for: min))"
     }
 }
 
@@ -154,17 +132,17 @@ extension ForecastVM {
 
 extension ForecastVM {
 
+    // Getting 24 Hours data from 48 Hours Data array
     func getWeatherInfoFor24Hours() -> [HourlyForecast] {
         var weatherInfo24Hour: [HourlyForecast] = []
         
-        for i in 0..<24 {
-            weatherInfo24Hour.append(getWeatherInfoPerHour(for: getHourlyForecastInfo()?[i]))
-        }
+        weatherInfo24Hour = getHourlyForecastInfo()?.enumerated().filter { $0.offset < 24 }.map { getWeatherInfoPerHour(for: $0.element) } ?? []
         
-//        getHourlyForecastInfo()?.forEach({ weatherInfoHour in
-//            weatherInfo24Hour.append(getWeatherInfoPerHour(for: weatherInfoHour))
-//        })
-        
+        /*
+        getHourlyForecastInfo()?.forEach({ weatherInfoHour in
+            weatherInfo24Hour.append(getWeatherInfoPerHour(for: weatherInfoHour))
+        })
+         */
         return weatherInfo24Hour
     }
     

@@ -95,7 +95,10 @@ extension HourlyForecastView: UICollectionViewDelegate, UICollectionViewDataSour
             withReuseIdentifier: HourlyForecastCVCell.identifier,
             for: indexPath) as? HourlyForecastCVCell {
             
-            hourlyForeCastCVCell.configure(with: vm.getWeatherInfo(at: indexPath.row))
+            hourlyForeCastCVCell.configure(
+                with: vm.getWeatherInfo(at: indexPath.row),
+                currentTime: (indexPath.row == 0) ? true : false
+            )
             
             return hourlyForeCastCVCell
         }
