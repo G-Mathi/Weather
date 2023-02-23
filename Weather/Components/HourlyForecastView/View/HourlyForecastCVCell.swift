@@ -7,6 +7,7 @@
 
 import UIKit
 import Kingfisher
+import AlamofireImage
 
 class HourlyForecastCVCell: UICollectionViewCell {
     static let identifier = "HourlyForecastCVCell"
@@ -86,6 +87,7 @@ extension HourlyForecastCVCell {
         lblTime.text = currentTime ? "Now" : model.time
         lblTemperature.text = model.temperature
         
+        
         if let url = URL(string: model.icon) {
             DispatchQueue.global(qos: .userInteractive).async { [weak self] in
                 self?.retrieveAndSetImage(for: url)
@@ -94,17 +96,22 @@ extension HourlyForecastCVCell {
     }
     
     private func retrieveAndSetImage(for url: URL) {
-        let resource = ImageResource(downloadURL: url)
-        KingfisherManager.shared.retrieveImage(with: resource, options: nil, progressBlock: nil) { result in
-            switch result {
-            case .success(let value):
+        let imageDownloader = ImageDownloader(
+            configuration: ImageDownloader.defaultURLSessionConfiguration(),
+            downloadPrioritization: .fifo,
+            maximumActiveDownloads: 4,
+            imageCache: AutoPurgingImageCache()
+        )
+        
+        let urlRequest = URLRequest(url: url)
+
+        imageDownloader.download(urlRequest, completion:  { response in
+            if case .success(let image) = response.result {
                 DispatchQueue.main.async { [weak self] in
-                    self?.imageViewWeatherIcon.image = value.image
+                    self?.imageViewWeatherIcon.image = image
                 }
-            case .failure(_):
-                fatalError()
             }
-        }
+        })
     }
 }
 

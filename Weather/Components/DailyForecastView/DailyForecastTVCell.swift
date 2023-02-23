@@ -7,6 +7,7 @@
 
 import UIKit
 import Kingfisher
+import AlamofireImage
 
 struct DailyForecast {
     var day: String = ""
@@ -115,18 +116,22 @@ extension DailyForecastTVCell {
     }
     
     private func retrieveAndSetImage(for url: URL) {
-        let resource = ImageResource(downloadURL: url)
-        KingfisherManager.shared.retrieveImage(with: resource, options: nil, progressBlock: nil) { result in
-            switch result {
-            case .success(let value):
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
-//                DispatchQueue.main.async { [weak self] in
-                    self?.imageViewWeatherIcon.image = value.image
+        let imageDownloader = ImageDownloader(
+            configuration: ImageDownloader.defaultURLSessionConfiguration(),
+            downloadPrioritization: .fifo,
+            maximumActiveDownloads: 4,
+            imageCache: AutoPurgingImageCache()
+        )
+        
+        let urlRequest = URLRequest(url: url)
+
+        imageDownloader.download(urlRequest, completion:  { response in
+            if case .success(let image) = response.result {
+                DispatchQueue.main.async { [weak self] in
+                    self?.imageViewWeatherIcon.image = image
                 }
-            case .failure(_):
-                fatalError()
             }
-        }
+        })
     }
 }
 

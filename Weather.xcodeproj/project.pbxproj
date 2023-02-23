@@ -12,6 +12,7 @@
 		3B44DBCD29A7A9330012AB40 /* GeoCoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B44DBCC29A7A9320012AB40 /* GeoCoding.swift */; };
 		3B44DBD029A803740012AB40 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B44DBCF29A803740012AB40 /* Keys.plist */; };
 		3B44DBD229A803C20012AB40 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B44DBD129A803C20012AB40 /* Keys.swift */; };
+		3B44DBD529A815DB0012AB40 /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = 3B44DBD429A815DB0012AB40 /* AlamofireImage */; };
 		5F2B946B29A3AA4700EFBF56 /* ForecastViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2B946A29A3AA4700EFBF56 /* ForecastViewHeader.swift */; };
 		5F2B946E29A3DD5B00EFBF56 /* HomeNC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2B946D29A3DD5B00EFBF56 /* HomeNC.swift */; };
 		5F4C936A29A260AB001AACCC /* HourlyForecastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4C936929A260AB001AACCC /* HourlyForecastView.swift */; };
@@ -19,7 +20,6 @@
 		5F4C936E29A308F6001AACCC /* APIEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4C936D29A308F6001AACCC /* APIEnvironment.swift */; };
 		5F4C937029A34014001AACCC /* Forecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4C936F29A34014001AACCC /* Forecast.swift */; };
 		5F619B4329A22F2C002DB2EC /* EndPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F619B4229A22F2C002DB2EC /* EndPoints.swift */; };
-		5FA2004B29A6EF9F00E7DED5 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 5FA2004A29A6EF9F00E7DED5 /* Kingfisher */; };
 		5FAC762229A2488A0084392A /* CurrentLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FAC762129A2488A0084392A /* CurrentLocationView.swift */; };
 		5FAC762429A2513F0084392A /* CommonExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FAC762329A2513F0084392A /* CommonExtentions.swift */; };
 		5FACF59329A0BC1D00F068ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FACF59229A0BC1D00F068ED /* AppDelegate.swift */; };
@@ -95,7 +95,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5FA2004B29A6EF9F00E7DED5 /* Kingfisher in Frameworks */,
+				3B44DBD529A815DB0012AB40 /* AlamofireImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -371,7 +371,7 @@
 			);
 			name = Weather;
 			packageProductDependencies = (
-				5FA2004A29A6EF9F00E7DED5 /* Kingfisher */,
+				3B44DBD429A815DB0012AB40 /* AlamofireImage */,
 			);
 			productName = Weather;
 			productReference = 5FACF58F29A0BC1D00F068ED /* Weather.app */;
@@ -447,6 +447,7 @@
 			mainGroup = 5FACF58629A0BC1C00F068ED;
 			packageReferences = (
 				5FA2004929A6EF9F00E7DED5 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				3B44DBD329A815DB0012AB40 /* XCRemoteSwiftPackageReference "AlamofireImage" */,
 			);
 			productRefGroup = 5FACF59029A0BC1D00F068ED /* Products */;
 			projectDirPath = "";
@@ -862,6 +863,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		3B44DBD329A815DB0012AB40 /* XCRemoteSwiftPackageReference "AlamofireImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/AlamofireImage";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 		5FA2004929A6EF9F00E7DED5 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher";
@@ -873,10 +882,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		5FA2004A29A6EF9F00E7DED5 /* Kingfisher */ = {
+		3B44DBD429A815DB0012AB40 /* AlamofireImage */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5FA2004929A6EF9F00E7DED5 /* XCRemoteSwiftPackageReference "Kingfisher" */;
-			productName = Kingfisher;
+			package = 3B44DBD329A815DB0012AB40 /* XCRemoteSwiftPackageReference "AlamofireImage" */;
+			productName = AlamofireImage;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
