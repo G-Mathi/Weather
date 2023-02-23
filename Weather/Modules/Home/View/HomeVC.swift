@@ -8,8 +8,6 @@
 import UIKit
 import CoreLocation
 
-// London - (51.507351, -0.127758)
-
 class HomeVC: UIViewController {
     
     // MARK: - Variables
@@ -19,7 +17,6 @@ class HomeVC: UIViewController {
     
     // MARK: Components
     
-    /// Current Temperature View
     private var currentLocationView: CurrentLocationIntroView = {
         let view = CurrentLocationIntroView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -95,9 +92,7 @@ extension HomeVC {
                 }
             } else {
                 if let message {
-                    DispatchQueue.main.async { [unowned self] in
-                        AlertProvider.showAlert(target: self, title: AlertStrings.Alert.rawValue, message: message, action: AlertAction(title: AlertStrings.Dismiss.rawValue))
-                    }
+                    AlertProvider.showAlert(target: self, title: AlertStrings.Alert.rawValue, message: message, action: AlertAction(title: AlertStrings.Dismiss.rawValue))
                 }
             }
         }
@@ -147,7 +142,7 @@ extension HomeVC {
         let safeArea = view.safeAreaLayoutGuide
         let constraintsDailyView = [
             forecastTableView.topAnchor.constraint(equalTo: currentLocationView.bottomAnchor),
-            forecastTableView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
+            forecastTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             forecastTableView.leftAnchor.constraint(equalTo: safeArea.leftAnchor),
             forecastTableView.rightAnchor.constraint(equalTo: safeArea.rightAnchor)
         ]

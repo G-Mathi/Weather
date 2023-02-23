@@ -87,7 +87,7 @@ class DailyForecastTVCell: UITableViewCell {
         setContainer()
         setcontainerDayComponents()
         
-        self.backgroundColor = .clear
+        contentView.backgroundColor = UIColor(red: 0.09, green: 0.16, blue: 0.25, alpha: 1.00)
     }
     
     override func prepareForReuse() {
@@ -145,7 +145,7 @@ extension DailyForecastTVCell {
         let constraintsContainer = [
             container.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
             container.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
-            container.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 8),
+            container.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 38),
             container.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -8),
         ]
         NSLayoutConstraint.activate(constraintsContainer)

@@ -2,7 +2,7 @@
 //  Helper.swift
 //  Weather
 //
-//  Created by dilax on 2023-02-22.
+//  Created by Mathi on 2023-02-22.
 //
 
 import Foundation

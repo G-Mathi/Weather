@@ -7,8 +7,6 @@
 
 import Foundation
 
-// London - (51.507351, -0.127758)
-
 class ForecastVM: NSObject {
     
     #warning("Need to relocate where good")
@@ -215,7 +213,7 @@ extension ForecastVM {
         let dailyForecast = DailyForecast(
             day: getDay(for: timeStamp),
             icon: getIcon(for: weatherIcon),
-            temperatureRange: "H: \(getTemperature(for: maxTemp)) L:\(getTemperature(for: minTemp))"
+            temperatureRange: "H: \(getTemperature(for: maxTemp))   L:\(getTemperature(for: minTemp))"
         )
         return dailyForecast
     }
