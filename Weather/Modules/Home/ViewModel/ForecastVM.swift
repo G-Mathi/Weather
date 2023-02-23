@@ -203,8 +203,7 @@ extension ForecastVM {
         let dailyForecast = DailyForecast(
             day: getDay(for: timeStamp),
             icon: getIcon(for: weatherIcon),
-            minTemperature: getTemperature(for: minTemp),
-            maxTemperature: getTemperature(for: maxTemp)
+            temperatureRange: "H: \(getTemperature(for: maxTemp)) L:\(getTemperature(for: minTemp))"
         )
         return dailyForecast
     }

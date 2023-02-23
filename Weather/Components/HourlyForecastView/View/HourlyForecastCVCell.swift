@@ -33,7 +33,7 @@ class HourlyForecastCVCell: UICollectionViewCell {
         return label
     }()
     
-    private let imageViewWeatherIcon: UIImageView = {
+    private var imageViewWeatherIcon: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
@@ -86,8 +86,25 @@ extension HourlyForecastCVCell {
         lblTime.text = model.time
         lblTemperature.text = model.temperature
         
-        let url = URL(string: model.icon)
-        imageViewWeatherIcon.kf.setImage(with: url)
+        if let url = URL(string: model.icon) {
+            DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+                self?.retrieveAndSetImage(for: url)
+            }
+        }
+    }
+    
+    private func retrieveAndSetImage(for url: URL) {
+        let resource = ImageResource(downloadURL: url)
+        KingfisherManager.shared.retrieveImage(with: resource, options: nil, progressBlock: nil) { result in
+            switch result {
+            case .success(let value):
+                DispatchQueue.main.async { [weak self] in
+                    self?.imageViewWeatherIcon.image = value.image
+                }
+            case .failure(_):
+                fatalError()
+            }
+        }
     }
 }
 

@@ -6,12 +6,12 @@
 //
 
 import UIKit
+import Kingfisher
 
 struct DailyForecast {
     var day: String = ""
     var icon: String = ""
-    var minTemperature: String = ""
-    var maxTemperature: String = ""
+    var temperatureRange: String = ""
 }
 
 class DailyForecastTVCell: UITableViewCell {
@@ -23,12 +23,21 @@ class DailyForecastTVCell: UITableViewCell {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
-        stackView.alignment = .leading
+        stackView.alignment = .fill
         stackView.distribution = .fill
         stackView.spacing = 12
         
-        #warning("Remove")
-        stackView.backgroundColor = .yellow
+        stackView.backgroundColor = .clear
+        return stackView
+    }()
+    
+    private var containerDay: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.alignment = .fill
+        stackView.distribution = .fillProportionally
+        stackView.spacing = 30
         return stackView
     }()
     
@@ -36,9 +45,6 @@ class DailyForecastTVCell: UITableViewCell {
         let label = UILabel()
         label.numberOfLines = 1
         label.font = .systemFont(ofSize: 16)
-        
-        #warning("Remove")
-        label.backgroundColor = .green
         return label
     }()
     
@@ -51,39 +57,12 @@ class DailyForecastTVCell: UITableViewCell {
         return imageView
     }()
     
-    /// Temperatire Min Max View
-    private var containerMinMax: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.alignment = .center
-        stackView.distribution = .fill
-        stackView.spacing = 12
-        
-        #warning("Remove")
-        stackView.backgroundColor = .white
-        return stackView
-    }()
-    
-    private var lblMinTemperature: UILabel = {
+    private var lblMinMaxTemperature: UILabel = {
         let label = UILabel()
         label.numberOfLines = 1
         label.font = .systemFont(ofSize: 16)
+        label.textAlignment = .center
         return label
-    }()
-    
-    private var lblMaxTemperature: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 1
-        label.font = .systemFont(ofSize: 16)
-        return label
-    }()
-    
-    private var progressBar: UIProgressView = {
-        let progressView = UIProgressView(progressViewStyle: .bar)
-        progressView.progress = 0
-        progressView.progressTintColor = .green
-        progressView.trackTintColor = .red
-        return progressView
     }()
     
     // MARK: - Init View
@@ -95,10 +74,6 @@ class DailyForecastTVCell: UITableViewCell {
         accessoryType = .none
         
         addViews()
-        addMinMaxViews()
-        
-        #warning("Remove")
-        contentView.backgroundColor = .link
     }
     
     required init?(coder: NSCoder) {
@@ -109,15 +84,17 @@ class DailyForecastTVCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        setMinMaxView()
+        setContainer()
+        setcontainerDayComponents()
+        
+        self.backgroundColor = .clear
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
         
         lblDay.text = nil
-        lblMinTemperature.text = nil
-        lblMaxTemperature.text = nil
+        lblMinMaxTemperature.text = nil
         imageViewWeatherIcon.image = nil
     }
 }
@@ -128,10 +105,27 @@ extension DailyForecastTVCell {
     
     func configure(with model: DailyForecast) {
         lblDay.text = model.day
-        lblMinTemperature.text = model.minTemperature
-        lblMaxTemperature.text = model.maxTemperature
-        imageViewWeatherIcon.image = UIImage(systemName: "person")
-        progressBar.progress = 0.6
+        lblMinMaxTemperature.text = model.temperatureRange
+        
+        if let url = URL(string: model.icon) {
+            DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+                self?.retrieveAndSetImage(for: url)
+            }
+        }
+    }
+    
+    private func retrieveAndSetImage(for url: URL) {
+        let resource = ImageResource(downloadURL: url)
+        KingfisherManager.shared.retrieveImage(with: resource, options: nil, progressBlock: nil) { result in
+            switch result {
+            case .success(let value):
+                DispatchQueue.main.async { [weak self] in
+                    self?.imageViewWeatherIcon.image = value.image
+                }
+            case .failure(_):
+                fatalError()
+            }
+        }
     }
 }
 
@@ -141,22 +135,28 @@ extension DailyForecastTVCell {
     
     private func addViews() {
         contentView.addSubview(container)
-        container.addArrangedSubview(lblDay)
-        container.addArrangedSubview(containerMinMax)
-    }
-}
-
-// MARK: - Set MinMax View
-
-extension DailyForecastTVCell {
-    
-    private func setMinMaxView() {
-        progressBar.widthAnchor.constraint(equalToConstant: 120).isActive = true
+        container.addArrangedSubview(containerDay)
+        containerDay.addArrangedSubview(lblDay)
+        containerDay.addArrangedSubview(imageViewWeatherIcon)
+        container.addArrangedSubview(lblMinMaxTemperature)
     }
     
-    private func addMinMaxViews() {
-        containerMinMax.addArrangedSubview(lblMinTemperature)
-        containerMinMax.addArrangedSubview(progressBar)
-        containerMinMax.addArrangedSubview(lblMaxTemperature)
+    private func setContainer() {
+        let constraintsContainer = [
+            container.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            container.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
+            container.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 8),
+            container.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -8),
+        ]
+        NSLayoutConstraint.activate(constraintsContainer)
+    }
+    
+    private func setcontainerDayComponents() {
+        lblDay.widthAnchor.constraint(equalTo: container.widthAnchor, multiplier: 0.25).isActive = true
+        
+        imageViewWeatherIcon.widthAnchor.constraint(equalTo: imageViewWeatherIcon.heightAnchor).isActive = true
+        
+//        imageViewWeatherIcon.heightAnchor.constraint(equalTo: container.heightAnchor, multiplier: 0.8).isActive = true
+//        imageViewWeatherIcon.widthAnchor.constraint(equalTo: imageViewWeatherIcon.heightAnchor, multiplier: 1).isActive = true
     }
 }

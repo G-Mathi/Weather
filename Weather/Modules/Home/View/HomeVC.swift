@@ -21,7 +21,8 @@ class HomeVC: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 12
         
-        view.backgroundColor = .orange
+        // RGB = 22, 40, 63
+        view.backgroundColor = UIColor(red: 0.09, green: 0.16, blue: 0.25, alpha: 1.00)
         return view
     }()
     
@@ -30,6 +31,7 @@ class HomeVC: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false
+        tableView.backgroundColor = .clear
         return tableView
     }()
     
@@ -51,7 +53,9 @@ class HomeVC: UIViewController {
     
     private func setupUI() {
         self.title = "Home"
-        view.backgroundColor = .systemBackground
+        
+        // RGB = 35, 59, 88
+        view.backgroundColor = UIColor(red: 0.14, green: 0.23, blue: 0.35, alpha: 1.00)
         
         setCurrentTemperatureView()
         setDailyForecastView()
@@ -109,8 +113,10 @@ extension HomeVC {
         NSLayoutConstraint.activate(constraintsDailyView)
     }
     
+    // MARK: -  Set Header
+    
     private func setForcastViewHeader() {
-        forcastViewHeader.frame = CGRect(x: 0, y: 0, width: forecastTableView.frame.size.width, height: 200)
+        forcastViewHeader.frame = CGRect(x: 0, y: 0, width: forecastTableView.frame.size.width, height: 100)
         forecastTableView.tableHeaderView = forcastViewHeader
     }
 }
@@ -151,5 +157,13 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
             return dailyForecastCell
         }
         return UITableViewCell()
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
     }
 }
