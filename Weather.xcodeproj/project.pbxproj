@@ -10,6 +10,8 @@
 		3B44DBC829A7975B0012AB40 /* AlertProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B44DBC729A7975B0012AB40 /* AlertProvider.swift */; };
 		3B44DBCB29A79DDC0012AB40 /* CommonStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B44DBCA29A79DDC0012AB40 /* CommonStrings.swift */; };
 		3B44DBCD29A7A9330012AB40 /* GeoCoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B44DBCC29A7A9320012AB40 /* GeoCoding.swift */; };
+		3B44DBD029A803740012AB40 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B44DBCF29A803740012AB40 /* Keys.plist */; };
+		3B44DBD229A803C20012AB40 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B44DBD129A803C20012AB40 /* Keys.swift */; };
 		5F2B946B29A3AA4700EFBF56 /* ForecastViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2B946A29A3AA4700EFBF56 /* ForecastViewHeader.swift */; };
 		5F2B946E29A3DD5B00EFBF56 /* HomeNC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2B946D29A3DD5B00EFBF56 /* HomeNC.swift */; };
 		5F4C936A29A260AB001AACCC /* HourlyForecastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4C936929A260AB001AACCC /* HourlyForecastView.swift */; };
@@ -57,6 +59,8 @@
 		3B44DBC729A7975B0012AB40 /* AlertProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertProvider.swift; sourceTree = "<group>"; };
 		3B44DBCA29A79DDC0012AB40 /* CommonStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonStrings.swift; sourceTree = "<group>"; };
 		3B44DBCC29A7A9320012AB40 /* GeoCoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoCoding.swift; sourceTree = "<group>"; };
+		3B44DBCF29A803740012AB40 /* Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
+		3B44DBD129A803C20012AB40 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		5F2B946A29A3AA4700EFBF56 /* ForecastViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastViewHeader.swift; sourceTree = "<group>"; };
 		5F2B946D29A3DD5B00EFBF56 /* HomeNC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNC.swift; sourceTree = "<group>"; };
 		5F4C936929A260AB001AACCC /* HourlyForecastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyForecastView.swift; sourceTree = "<group>"; };
@@ -117,6 +121,7 @@
 			children = (
 				3B44DBCA29A79DDC0012AB40 /* CommonStrings.swift */,
 				3B44DBCC29A7A9320012AB40 /* GeoCoding.swift */,
+				3B44DBD129A803C20012AB40 /* Keys.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -163,6 +168,7 @@
 				5FACF5C229A0BCD200F068ED /* Assets */,
 				5FACF59D29A0BC1F00F068ED /* LaunchScreen.storyboard */,
 				5FACF5A029A0BC1F00F068ED /* Info.plist */,
+				3B44DBCF29A803740012AB40 /* Keys.plist */,
 			);
 			path = Weather;
 			sourceTree = "<group>";
@@ -458,6 +464,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B44DBD029A803740012AB40 /* Keys.plist in Resources */,
 				5FACF59F29A0BC1F00F068ED /* LaunchScreen.storyboard in Resources */,
 				5FACF59C29A0BC1F00F068ED /* Assets.xcassets in Resources */,
 			);
@@ -508,6 +515,7 @@
 				5FAEDED129A4B0F900BC632D /* HourlyForecastVM.swift in Sources */,
 				5FAC762229A2488A0084392A /* CurrentLocationView.swift in Sources */,
 				3B44DBC829A7975B0012AB40 /* AlertProvider.swift in Sources */,
+				3B44DBD229A803C20012AB40 /* Keys.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

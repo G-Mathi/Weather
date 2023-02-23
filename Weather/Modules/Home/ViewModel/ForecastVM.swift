@@ -27,10 +27,12 @@ class ForecastVM: NSObject {
     var forecast: Forecast?
     
     func prepLocationForRequest(location: (lat: Double, lon: Double)) -> WeatherRequest {
+        let keys = Keys(resourceName: "Keys")
+        
         let weatherRequest = WeatherRequest(
             lat: location.lat,
             lon: location.lon,
-            appID: "a013dc27d569ced7c7c5d28937e3b87e"
+            appID: keys.Weather_API_Key
         )
         return weatherRequest
     }
