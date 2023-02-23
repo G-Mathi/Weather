@@ -48,7 +48,7 @@ class ForecastVM: NSObject {
     }
 }
 
-// MARK: - Get CUrrent Location
+// MARK: - Get Current Location
 
 extension ForecastVM {
     
