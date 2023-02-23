@@ -61,7 +61,8 @@ class HomeVC: UIViewController {
     // MARK: - Configure
     
     private func configure() {
-        currentLocationView.configure(with: vm.getCurrentLocationInfo())
+//        currentLocationView.configure(with: vm.getCurrentLocationInfo())
+        currentLocationView.configure(with: CurrentLocationInfo())
         forcastViewHeader.configure(with: vm)
         
         // Need configuration method for this
@@ -80,8 +81,8 @@ extension HomeVC {
         let safeArea = view.safeAreaLayoutGuide
         let constraintsCurrentTemperatureView = [
             currentLocationView.topAnchor.constraint(equalTo: safeArea.topAnchor),
-            currentLocationView.rightAnchor.constraint(equalTo: safeArea.rightAnchor),
-            currentLocationView.leftAnchor.constraint(equalTo: safeArea.leftAnchor)
+            currentLocationView.leftAnchor.constraint(equalTo: safeArea.leftAnchor, constant: 25),
+            currentLocationView.rightAnchor.constraint(equalTo: safeArea.rightAnchor, constant: -25)
         ]
         NSLayoutConstraint.activate(constraintsCurrentTemperatureView)
     }

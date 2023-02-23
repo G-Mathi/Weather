@@ -52,7 +52,6 @@ class CurrentLocationIntroView: UIView {
         setLocationStack()
         setTimeLabel()
         setCurrentWeather()
-        setLabelsForWeather()
         setOtherContainer()
     }
 }
@@ -62,16 +61,16 @@ class CurrentLocationIntroView: UIView {
 extension CurrentLocationIntroView {
     
     func configure(with model: CurrentLocationInfo) {
-        locationStack.configure(with: ImageLabel(icon: "", title: model.location))
+        locationStack.configure(with: ImageLabel(icon: "location", title: model.location))
         labelTime.text = model.time
         
-        lblCurrentTemperature.text = model.currentTemperatire
+        lblCurrentTemperature.text = "\(model.currentTemperatire)"
         lblTemperatureDescription.text = model.weatherDescription
         lblMinMaxTemperature.text = model.minMaxTemperature
     
-        pressureStack.configure(with: ImageLabel(icon: "", title: "\(model.pressure) hpa"))
-        humidityStack.configure(with: ImageLabel(icon: "", title: "\(model.humidity) %"))
-        windSpeedStack.configure(with: ImageLabel(icon: "", title: "\(model.windSpeed) km/h"))
+        pressureStack.configure(with: ImageLabel(icon: "gauge.medium", title: "\(model.pressure) hpa"))
+        humidityStack.configure(with: ImageLabel(icon: "humidity", title: "\(model.humidity) %"))
+        windSpeedStack.configure(with: ImageLabel(icon: "wind", title: "\(model.windSpeed) km/h"))
     }
 }
 
@@ -160,12 +159,12 @@ extension CurrentLocationIntroView {
         // Current Temperature
         lblCurrentTemperature = UILabel()
         lblCurrentTemperature.numberOfLines = 1
-        lblCurrentTemperature.font = .systemFont(ofSize: 14)
+        lblCurrentTemperature.font = .systemFont(ofSize: 54, weight: .regular)
         
         // Temperature Description
         lblTemperatureDescription = UILabel()
         lblTemperatureDescription.numberOfLines = 1
-        lblTemperatureDescription.font = .systemFont(ofSize: 14)
+        lblTemperatureDescription.font = .systemFont(ofSize: 18)
         
         // Minimum & Maximum Temperatures
         lblMinMaxTemperature = UILabel()
@@ -188,15 +187,15 @@ extension CurrentLocationIntroView {
         otherContainer = UIStackView()
         otherContainer.translatesAutoresizingMaskIntoConstraints = false
         otherContainer.axis = .horizontal
-        otherContainer.alignment = .fill
-        otherContainer.distribution = .fillEqually
+        otherContainer.alignment = .center
+        otherContainer.distribution = .equalCentering
         otherContainer.spacing = 0
     
         self.addSubview(otherContainer)
         
         let constraintsOtherContainer = [
             otherContainer.topAnchor.constraint(equalTo: currentWeatherContainer.bottomAnchor, constant: 20),
-            otherContainer.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 16),
+            otherContainer.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -16),
             otherContainer.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 16),
             otherContainer.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -16)
         ]

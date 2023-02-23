@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class HourlyForecastCVCell: UICollectionViewCell {
     static let identifier = "HourlyForecastCVCell"
@@ -20,14 +21,15 @@ class HourlyForecastCVCell: UICollectionViewCell {
         stackView.distribution = .fill
         stackView.spacing = 8
         
-        stackView.backgroundColor = .green
+        stackView.backgroundColor = .clear
         return stackView
     }()
     
     private let lblTime: UILabel = {
         let label = UILabel()
         label.numberOfLines = 1
-        label.font = .systemFont(ofSize: 14)
+        label.font = .systemFont(ofSize: 13)
+        label.textColor = .lightGray
         return label
     }()
     
@@ -43,7 +45,7 @@ class HourlyForecastCVCell: UICollectionViewCell {
     private let lblTemperature: UILabel = {
         let label = UILabel()
         label.numberOfLines = 1
-        label.font = .systemFont(ofSize: 14)
+        label.font = .systemFont(ofSize: 15, weight: .semibold)
         return label
     }()
     
@@ -82,8 +84,10 @@ extension HourlyForecastCVCell {
     
     func configure(with model: HourlyForecast) {
         lblTime.text = model.time
-        imageViewWeatherIcon.image = UIImage(systemName: "person")
         lblTemperature.text = model.temperature
+        
+        let url = URL(string: model.icon)
+        imageViewWeatherIcon.kf.setImage(with: url)
     }
 }
 

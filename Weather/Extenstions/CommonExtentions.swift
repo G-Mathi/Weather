@@ -42,7 +42,7 @@ extension Double {
         let date = Date(timeIntervalSince1970: self)
         let dateFormatter = DateFormatter()
         dateFormatter.timeStyle = DateFormatter.Style.short
-        dateFormatter.dateFormat = "HH"
+        dateFormatter.dateFormat = "hh a"
         dateFormatter.timeZone = .current
         
         return dateFormatter.string(from: date)

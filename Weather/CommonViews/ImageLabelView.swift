@@ -71,7 +71,7 @@ extension ImageLabelView {
     
     private func setUI() {
         self.axis = .horizontal
-        self.alignment = .fill
+        self.alignment = .center
         self.distribution = .fill
         self.spacing = 8
         

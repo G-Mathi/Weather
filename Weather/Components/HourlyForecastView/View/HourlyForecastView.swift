@@ -20,7 +20,8 @@ class HourlyForecastView: UIView {
         layout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .link
+        collectionView.backgroundColor = .clear
+        collectionView.showsHorizontalScrollIndicator = false
         return collectionView
     }()
     

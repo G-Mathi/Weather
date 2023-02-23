@@ -8,15 +8,15 @@
 import UIKit
 
 struct CurrentLocationInfo {
-    var location: String = ""
-    var currentTemperatire: String = ""
-    var minMaxTemperature: String = ""
+    var location: String = "Mamangam"
+    var currentTemperatire: String = 296.convertTemperature(from: .kelvin, to: .celsius)
+    var minMaxTemperature: String = "H: 34  L: 28"
     
-    var time: String = ""
-    var weatherDescription: String = ""
-    var pressure: Int = 0
-    var humidity: Int = 0
-    var windSpeed: Double = 0.0
+    var time: String = "Today 05:50 AM"
+    var weatherDescription: String = "Mostly Clear"
+    var pressure: Int = 2343
+    var humidity: Int = 67
+    var windSpeed: Double = 37.0
 }
 
 class CurrentLocationView: UIStackView {
