@@ -83,8 +83,8 @@ class HourlyForecastCVCell: UICollectionViewCell {
 
 extension HourlyForecastCVCell {
     
-    func configure(with model: HourlyForecast, currentTime: Bool) {
-        lblTime.text = currentTime ? "Now" : model.time
+    func configure(with model: HourlyForecast, isCurrentTime: Bool) {
+        lblTime.text = isCurrentTime ? "Now" : model.time
         lblTemperature.text = model.temperature
         
         

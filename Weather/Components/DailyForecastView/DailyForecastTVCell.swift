@@ -105,8 +105,8 @@ class DailyForecastTVCell: UITableViewCell {
 
 extension DailyForecastTVCell {
     
-    func configure(with model: DailyForecast) {
-        lblDay.text = model.day
+    func configure(with model: DailyForecast, isToday: Bool) {
+        lblDay.text = isToday ? "Today" : model.day
         lblMinMaxTemperature.text = model.temperatureRange
         
         if let url = URL(string: model.icon) {

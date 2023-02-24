@@ -76,7 +76,7 @@ extension CurrentLocationIntroView {
         labelTime.text = model.time
         
         lblCurrentTemperature.text = "\(model.currentTemperatire)C"
-        lblTemperatureDescription.text = model.weatherDescription
+        lblTemperatureDescription.text = model.weatherDescription.capitalized
         lblMinMaxTemperature.text = model.minMaxTemperature
     
         pressureStack.configure(with: ImageLabel(icon: "gauge.medium", title: "\(model.pressure) hpa"))

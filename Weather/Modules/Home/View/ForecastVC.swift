@@ -223,7 +223,8 @@ extension ForecastVC: UITableViewDelegate, UITableViewDataSource {
             withIdentifier: DailyForecastTVCell.identifier,
             for: indexPath) as? DailyForecastTVCell {
             
-            dailyForecastCell.configure(with: vm.getWeatherInfo(at: indexPath.row))
+            dailyForecastCell.configure(with: vm.getWeatherInfo(at: indexPath.row), isToday: (indexPath.row == 0) ? true : false)
+            
             return dailyForecastCell
         }
         return UITableViewCell()

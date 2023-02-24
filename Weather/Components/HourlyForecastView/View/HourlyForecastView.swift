@@ -97,7 +97,7 @@ extension HourlyForecastView: UICollectionViewDelegate, UICollectionViewDataSour
             
             hourlyForeCastCVCell.configure(
                 with: vm.getWeatherInfo(at: indexPath.row),
-                currentTime: (indexPath.row == 0) ? true : false
+                isCurrentTime: (indexPath.row == 0) ? true : false
             )
             
             return hourlyForeCastCVCell
