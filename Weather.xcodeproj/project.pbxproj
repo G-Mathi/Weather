@@ -120,6 +120,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3B43DCAE29A82C4F00B43AD3 /* PlainView */ = {
+			isa = PBXGroup;
+			children = (
+				5FAC762129A2488A0084392A /* CurrentLocationView.swift */,
+			);
+			path = PlainView;
+			sourceTree = "<group>";
+		};
 		3B44DBC929A79DC10012AB40 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -288,8 +296,8 @@
 		5FAEDECA29A49B5C00BC632D /* CurrentLocationView */ = {
 			isa = PBXGroup;
 			children = (
+				3B43DCAE29A82C4F00B43AD3 /* PlainView */,
 				5FC30F8229A6973100EC1617 /* IntroView */,
-				5FAC762129A2488A0084392A /* CurrentLocationView.swift */,
 			);
 			path = CurrentLocationView;
 			sourceTree = "<group>";
@@ -454,6 +462,7 @@
 			packageReferences = (
 				5FA2004929A6EF9F00E7DED5 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				3B44DBD329A815DB0012AB40 /* XCRemoteSwiftPackageReference "AlamofireImage" */,
+				3B43DCAF29A82D6900B43AD3 /* XCRemoteSwiftPackageReference "PullToRefreshKit" */,
 			);
 			productRefGroup = 5FACF59029A0BC1D00F068ED /* Products */;
 			projectDirPath = "";
@@ -871,6 +880,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		3B43DCAF29A82D6900B43AD3 /* XCRemoteSwiftPackageReference "PullToRefreshKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/LeoMobileDeveloper/PullToRefreshKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.8.9;
+			};
+		};
 		3B44DBD329A815DB0012AB40 /* XCRemoteSwiftPackageReference "AlamofireImage" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/AlamofireImage";

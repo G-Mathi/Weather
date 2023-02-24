@@ -49,7 +49,17 @@ class HomeVC: UIViewController {
         view.backgroundColor = .Background.DarkBlue.value
         return view
     }()
-
+    
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(handleRefresh(_:)), for: UIControl.Event.valueChanged)
+        refreshControl.tintColor = UIColor.white
+        return refreshControl
+    }()
+    
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+        self.locationManager?.requestLocation()
+    }
     
     // MARK: - View LifeCycle
     
@@ -71,6 +81,8 @@ class HomeVC: UIViewController {
         setCurrentTemperatureView()
         setDailyForecastView()
         setForcastViewHeader()
+        
+        self.forecastTableView.addSubview(self.refreshControl)
     }
 }
 
@@ -93,17 +105,19 @@ extension HomeVC {
 
 extension HomeVC {
     
-    private func getWeatherDataAndConfigure(for location: (lat: Double, lon: Double)) {
+    private func getWeatherDataAndConfigure(for location: (lat: Double, lon: Double), completion: @escaping (Bool) -> Void) {
         
         let currentLocationRequest = vm.prepLocationForRequest(location: location)
         
         vm.getWeatherForecast(at: currentLocationRequest) { [unowned self] success, message  in
             if success {
+                completion(true)
                 DispatchQueue.main.async { [unowned self] in
                     self.configure()
                 }
             } else {
                 if let message {
+                    completion(false)
                     AlertProvider.showAlert(target: self, title: AlertStrings.Alert.rawValue, message: message, action: AlertAction(title: AlertStrings.Dismiss.rawValue))
                 }
             }
@@ -223,8 +237,10 @@ extension HomeVC: CLLocationManagerDelegate {
         switch manager.authorizationStatus {
         case .notDetermined:
             locationManager?.requestWhenInUseAuthorization()
+            
         case .restricted:
             AlertProvider.showAlert(target: self, title: AlertStrings.Sorry.rawValue, message: AlertStrings.LocationRestricted.rawValue, action: AlertAction(title: AlertStrings.Dismiss.rawValue))
+            
         case .denied:
             AlertProvider.showAlertWithActions(target: self, title: AlertStrings.LocationDeniedTitle.rawValue, message: AlertStrings.LocationDenied.rawValue, actions: [AlertAction(title: AlertStrings.Cancel.rawValue), AlertAction(title: AlertStrings.Confirm.rawValue)]) { [weak self] action in
                 if action.title == AlertStrings.Confirm.rawValue {
@@ -233,14 +249,41 @@ extension HomeVC: CLLocationManagerDelegate {
                     // Show alternative location
                     // London - (51.507351, -0.127758)
                     let london: (lat: Double, lon: Double) = (51.507351, -0.127758)
-                    self?.getWeatherDataAndConfigure(for: (london.lon, lon: london.lat))
+                    self?.getWeatherDataAndConfigure(for: (london.lon, lon: london.lat), completion: { _ in
+                        
+                    })
                 }
             }
+            
         case .authorizedAlways, .authorizedWhenInUse:
             guard let location = manager.location else { return }
-            getWeatherDataAndConfigure(for: (location.coordinate.latitude, location.coordinate.longitude))
+            DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+                self?.getWeatherDataAndConfigure(for: (location.coordinate.latitude, location.coordinate.longitude), completion: { _ in
+                    
+                })
+            }
+            
         @unknown default:
             break
         }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.first {
+            locationManager?.stopUpdatingLocation()
+            
+            DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+                self?.getWeatherDataAndConfigure(for: (location.coordinate.latitude, location.coordinate.longitude), completion: { _ in
+                    DispatchQueue.main.async { [weak self] in
+                        self?.refreshControl.endRefreshing()
+                    }
+                })
+            }
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        locationManager?.stopUpdatingLocation()
+        AlertProvider.showAlert(target: self, title: AlertStrings.Alert.rawValue, message: error.localizedDescription, action: AlertAction(title: AlertStrings.Dismiss.rawValue))
     }
 }
