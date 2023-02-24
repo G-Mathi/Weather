@@ -131,7 +131,7 @@ extension CurrentLocationIntroView {
         labelTime.translatesAutoresizingMaskIntoConstraints = false
         labelTime.numberOfLines = 1
         labelTime.textColor = .Label.Default.value
-        labelTime.font = .systemFont(ofSize: 14)
+        labelTime.font = .systemFont(ofSize: 15)
         
         self.addSubview(labelTime)
         

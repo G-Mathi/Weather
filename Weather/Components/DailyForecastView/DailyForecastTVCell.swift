@@ -159,7 +159,7 @@ extension DailyForecastTVCell {
     }
     
     private func setcontainerDayComponents() {
-        lblDay.widthAnchor.constraint(equalTo: container.widthAnchor, multiplier: 0.25).isActive = true
+        lblDay.widthAnchor.constraint(equalTo: container.widthAnchor, multiplier: 0.28).isActive = true
         imageViewWeatherIcon.widthAnchor.constraint(equalTo: imageViewWeatherIcon.heightAnchor).isActive = true
     }
 }
