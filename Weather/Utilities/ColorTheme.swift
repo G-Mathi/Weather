@@ -27,6 +27,7 @@ extension UIColor {
     enum Label {
         case Default
         case TimeLabel
+        case MidWhite
         
         var value: UIColor {
             switch self {
@@ -34,6 +35,8 @@ extension UIColor {
                 return UIColor(named: "DefaultLabel") ?? UIColor.white
             case .TimeLabel:
                 return UIColor(named: "TimeLabel") ?? UIColor.lightGray
+            case .MidWhite:
+                return UIColor(named: "MidWhite") ?? UIColor.lightGray
             }
         }
     }

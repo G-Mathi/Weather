@@ -45,7 +45,7 @@ class DailyForecastTVCell: UITableViewCell {
     private var lblDay: UILabel = {
         let label = UILabel()
         label.numberOfLines = 1
-        label.textColor = .Label.TimeLabel.value
+        label.textColor = .Label.MidWhite.value
         label.font = .systemFont(ofSize: 16, weight: .semibold)
         return label
     }()

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3B43DCAB29A825F700B43AD3 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B43DCAA29A825F700B43AD3 /* Colors.xcassets */; };
 		3B43DCAD29A828E300B43AD3 /* ColorTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B43DCAC29A828E300B43AD3 /* ColorTheme.swift */; };
+		3B43DCB329A8475D00B43AD3 /* Localizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B43DCB229A8475D00B43AD3 /* Localizer.swift */; };
 		3B44DBC829A7975B0012AB40 /* AlertProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B44DBC729A7975B0012AB40 /* AlertProvider.swift */; };
 		3B44DBCB29A79DDC0012AB40 /* CommonStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B44DBCA29A79DDC0012AB40 /* CommonStrings.swift */; };
 		3B44DBCD29A7A9330012AB40 /* GeoCoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B44DBCC29A7A9320012AB40 /* GeoCoding.swift */; };
@@ -28,7 +29,7 @@
 		5FACF59529A0BC1D00F068ED /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FACF59429A0BC1D00F068ED /* SceneDelegate.swift */; };
 		5FACF59C29A0BC1F00F068ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5FACF59B29A0BC1F00F068ED /* Assets.xcassets */; };
 		5FACF59F29A0BC1F00F068ED /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FACF59D29A0BC1F00F068ED /* LaunchScreen.storyboard */; };
-		5FACF5CB29A0BE8A00F068ED /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FACF5CA29A0BE8A00F068ED /* HomeVC.swift */; };
+		5FACF5CB29A0BE8A00F068ED /* ForecastVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FACF5CA29A0BE8A00F068ED /* ForecastVC.swift */; };
 		5FACF5D029A0C50C00F068ED /* ForecastVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FACF5CF29A0C50C00F068ED /* ForecastVM.swift */; };
 		5FAEDECC29A4AF5B00BC632D /* LocationManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FAEDECB29A4AF5B00BC632D /* LocationManger.swift */; };
 		5FAEDED129A4B0F900BC632D /* HourlyForecastVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FAEDED029A4B0F900BC632D /* HourlyForecastVM.swift */; };
@@ -60,6 +61,7 @@
 /* Begin PBXFileReference section */
 		3B43DCAA29A825F700B43AD3 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		3B43DCAC29A828E300B43AD3 /* ColorTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorTheme.swift; sourceTree = "<group>"; };
+		3B43DCB229A8475D00B43AD3 /* Localizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localizer.swift; sourceTree = "<group>"; };
 		3B44DBC729A7975B0012AB40 /* AlertProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertProvider.swift; sourceTree = "<group>"; };
 		3B44DBCA29A79DDC0012AB40 /* CommonStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonStrings.swift; sourceTree = "<group>"; };
 		3B44DBCC29A7A9320012AB40 /* GeoCoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoCoding.swift; sourceTree = "<group>"; };
@@ -82,7 +84,7 @@
 		5FACF5A029A0BC1F00F068ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5FACF5A529A0BC1F00F068ED /* WeatherTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeatherTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5FACF5AF29A0BC1F00F068ED /* WeatherUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeatherUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		5FACF5CA29A0BE8A00F068ED /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
+		5FACF5CA29A0BE8A00F068ED /* ForecastVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastVC.swift; sourceTree = "<group>"; };
 		5FACF5CF29A0C50C00F068ED /* ForecastVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastVM.swift; sourceTree = "<group>"; };
 		5FAEDECB29A4AF5B00BC632D /* LocationManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManger.swift; sourceTree = "<group>"; };
 		5FAEDED029A4B0F900BC632D /* HourlyForecastVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyForecastVM.swift; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 		3B44DBC929A79DC10012AB40 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				3B43DCB229A8475D00B43AD3 /* Localizer.swift */,
 				3B44DBCA29A79DDC0012AB40 /* CommonStrings.swift */,
 				3B44DBCC29A7A9320012AB40 /* GeoCoding.swift */,
 				3B44DBD129A803C20012AB40 /* Keys.swift */,
@@ -277,7 +280,7 @@
 		5FACF5CE29A0C4F800F068ED /* View */ = {
 			isa = PBXGroup;
 			children = (
-				5FACF5CA29A0BE8A00F068ED /* HomeVC.swift */,
+				5FACF5CA29A0BE8A00F068ED /* ForecastVC.swift */,
 				5F2B946A29A3AA4700EFBF56 /* ForecastViewHeader.swift */,
 			);
 			path = View;
@@ -511,7 +514,7 @@
 				5F4C936A29A260AB001AACCC /* HourlyForecastView.swift in Sources */,
 				3B44DBCD29A7A9330012AB40 /* GeoCoding.swift in Sources */,
 				5F2B946E29A3DD5B00EFBF56 /* HomeNC.swift in Sources */,
-				5FACF5CB29A0BE8A00F068ED /* HomeVC.swift in Sources */,
+				5FACF5CB29A0BE8A00F068ED /* ForecastVC.swift in Sources */,
 				5FDB7AE529A6CC7300B48AEF /* ImageLabelView.swift in Sources */,
 				3B43DCAD29A828E300B43AD3 /* ColorTheme.swift in Sources */,
 				5F4C936C29A26153001AACCC /* HourlyForecastCVCell.swift in Sources */,
@@ -526,6 +529,7 @@
 				5FACF59329A0BC1D00F068ED /* AppDelegate.swift in Sources */,
 				5FACF59529A0BC1D00F068ED /* SceneDelegate.swift in Sources */,
 				5F2B946B29A3AA4700EFBF56 /* ForecastViewHeader.swift in Sources */,
+				3B43DCB329A8475D00B43AD3 /* Localizer.swift in Sources */,
 				5FF85C7229A38B1B00D5BC77 /* DailyForecastTVCell.swift in Sources */,
 				5FC77B4B29A5BFD8004477CD /* WeatherAPI.swift in Sources */,
 				5FACF5D029A0C50C00F068ED /* ForecastVM.swift in Sources */,

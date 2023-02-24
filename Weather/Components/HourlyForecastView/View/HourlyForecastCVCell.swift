@@ -29,7 +29,7 @@ class HourlyForecastCVCell: UICollectionViewCell {
     private let lblTime: UILabel = {
         let label = UILabel()
         label.numberOfLines = 1
-        label.font = .systemFont(ofSize: 13)
+        label.font = .systemFont(ofSize: 14)
         label.textColor = .Label.TimeLabel.value
         return label
     }()

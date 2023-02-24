@@ -1,5 +1,5 @@
 //
-//  HomeVC.swift
+//  ForecastVC.swift
 //  Weather
 //
 //  Created by Mathi on 2023-02-18.
@@ -8,7 +8,7 @@
 import UIKit
 import CoreLocation
 
-class HomeVC: UIViewController {
+class ForecastVC: UIViewController {
     
     // MARK: - Variables
     
@@ -57,10 +57,6 @@ class HomeVC: UIViewController {
         return refreshControl
     }()
     
-    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
-        self.locationManager?.requestLocation()
-    }
-    
     // MARK: - View LifeCycle
     
     override func viewDidLoad() {
@@ -88,7 +84,7 @@ class HomeVC: UIViewController {
 
 // MARK: - Configure
 
-extension HomeVC {
+extension ForecastVC {
     
     private func configure() {
         setupUI()
@@ -103,8 +99,10 @@ extension HomeVC {
 
 // MARK: - API Request
 
-extension HomeVC {
+extension ForecastVC {
     
+    /// Initialize the API Call
+    /// At the moment Completion used to end the refreshControl
     private func getWeatherDataAndConfigure(for location: (lat: Double, lon: Double), completion: @escaping (Bool) -> Void) {
         
         let currentLocationRequest = vm.prepLocationForRequest(location: location)
@@ -118,16 +116,25 @@ extension HomeVC {
             } else {
                 if let message {
                     completion(false)
-                    AlertProvider.showAlert(target: self, title: AlertStrings.Alert.rawValue, message: message, action: AlertAction(title: AlertStrings.Dismiss.rawValue))
+                    AlertProvider.showAlert(target: self, title: .Alert, message: message, action: AlertAction(title: .Dismiss))
                 }
             }
         }
     }
 }
 
+// MARK: - Action RefreshControl
+
+extension ForecastVC {
+    
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+        self.locationManager?.requestLocation()
+    }
+}
+
 // MARK: - Set LocationManger
 
-extension HomeVC {
+extension ForecastVC {
     
     private func setLocationManger() {
         locationManager = CLLocationManager()
@@ -139,7 +146,7 @@ extension HomeVC {
 
 // MARK: - Set Current Temperature View
 
-extension HomeVC {
+extension ForecastVC {
     
     private func setCurrentTemperatureView() {
         view.addSubview(currentLocationView)
@@ -156,7 +163,7 @@ extension HomeVC {
 
 // MARK: - Set Daily Forecast View
 
-extension HomeVC {
+extension ForecastVC {
     
     private func setDailyForecastView() {
         view.addSubview(forecastTableView)
@@ -178,14 +185,14 @@ extension HomeVC {
     // MARK: -  Set Header
     
     private func setForcastViewHeader() {
-        forcastViewHeader.frame = CGRect(x: 0, y: 0, width: forecastTableView.frame.size.width, height: 100)
+        forcastViewHeader.frame = CGRect(x: 0, y: 0, width: forecastTableView.frame.size.width, height: 120)
         forecastTableView.tableHeaderView = forcastViewHeader
     }
 }
 
 // MARK: - Set Bottom View
 
-extension HomeVC {
+extension ForecastVC {
     
     private func setBottomView() {
         view.addSubview(bottomView)
@@ -201,7 +208,7 @@ extension HomeVC {
 
 // MARK: - TableView Delegate
 
-extension HomeVC: UITableViewDelegate, UITableViewDataSource {
+extension ForecastVC: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -212,7 +219,10 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let dailyForecastCell = tableView.dequeueReusableCell(withIdentifier: DailyForecastTVCell.identifier, for: indexPath) as? DailyForecastTVCell {
+        if let dailyForecastCell = tableView.dequeueReusableCell(
+            withIdentifier: DailyForecastTVCell.identifier,
+            for: indexPath) as? DailyForecastTVCell {
+            
             dailyForecastCell.configure(with: vm.getWeatherInfo(at: indexPath.row))
             return dailyForecastCell
         }
@@ -230,7 +240,7 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
 
 // MARK: - CLLocationManager Delegate
 
-extension HomeVC: CLLocationManagerDelegate {
+extension ForecastVC: CLLocationManagerDelegate {
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         
@@ -239,18 +249,16 @@ extension HomeVC: CLLocationManagerDelegate {
             locationManager?.requestWhenInUseAuthorization()
             
         case .restricted:
-            AlertProvider.showAlert(target: self, title: AlertStrings.Sorry.rawValue, message: AlertStrings.LocationRestricted.rawValue, action: AlertAction(title: AlertStrings.Dismiss.rawValue))
+            AlertProvider.showAlert(target: self, title: .Sorry, message: .LocationRestricted, action: AlertAction(title: .Dismiss))
             
         case .denied:
-            AlertProvider.showAlertWithActions(target: self, title: AlertStrings.LocationDeniedTitle.rawValue, message: AlertStrings.LocationDenied.rawValue, actions: [AlertAction(title: AlertStrings.Cancel.rawValue), AlertAction(title: AlertStrings.Confirm.rawValue)]) { [weak self] action in
-                if action.title == AlertStrings.Confirm.rawValue {
+            AlertProvider.showAlertWithActions(target: self, title: .LocationDeniedTitle, message: .LocationDenied, actions: [AlertAction(title: .Cancel), AlertAction(title: .Confirm)]) { [weak self] action in
+                if action.title == .Confirm {
                     UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:], completionHandler: nil)
                 } else {
-                    // Show alternative location
-                    // London - (51.507351, -0.127758)
+                    // Show alternative location -> London - (51.507351, -0.127758)
                     let london: (lat: Double, lon: Double) = (51.507351, -0.127758)
                     self?.getWeatherDataAndConfigure(for: (london.lon, lon: london.lat), completion: { _ in
-                        
                     })
                 }
             }
@@ -259,7 +267,6 @@ extension HomeVC: CLLocationManagerDelegate {
             guard let location = manager.location else { return }
             DispatchQueue.global(qos: .userInitiated).async { [weak self] in
                 self?.getWeatherDataAndConfigure(for: (location.coordinate.latitude, location.coordinate.longitude), completion: { _ in
-                    
                 })
             }
             
@@ -284,6 +291,6 @@ extension HomeVC: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         locationManager?.stopUpdatingLocation()
-        AlertProvider.showAlert(target: self, title: AlertStrings.Alert.rawValue, message: error.localizedDescription, action: AlertAction(title: AlertStrings.Dismiss.rawValue))
+        AlertProvider.showAlert(target: self, title: .Alert, message: error.localizedDescription, action: AlertAction(title: .Dismiss))
     }
 }
