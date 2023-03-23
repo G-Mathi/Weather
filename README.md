@@ -13,13 +13,13 @@ A weather app that displays the current weather conditions as well as a 24-hour 
 
 ## Technologies used:
 
-Swift programming language
-Xcode IDE
-OpenWeatherMap API
-UIKit framework
-CoreLocation framework
-URLSession for network requests
-Codable for JSON decoding
+* Swift programming language
+* Xcode IDE
+* OpenWeatherMap API
+* UIKit framework
+* CoreLocation framework
+* URLSession for network requests
+* Codable for JSON decoding
 
 ## Other
 
